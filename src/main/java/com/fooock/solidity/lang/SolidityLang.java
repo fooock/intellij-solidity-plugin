@@ -6,7 +6,7 @@ import com.intellij.lang.Language;
  * Solidity language
  */
 public class SolidityLang extends Language {
-    public static final SolidityLang INSTANCE = new SolidityLang();
+    static final SolidityLang INSTANCE = new SolidityLang();
 
     private SolidityLang() {
         super("Solidity");
