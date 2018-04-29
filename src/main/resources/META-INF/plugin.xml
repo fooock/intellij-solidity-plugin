@@ -1,0 +1,24 @@
+<idea-plugin>
+    <id>com.fooock.solidity-ide-plugin</id>
+    <name>Solidity</name>
+    <vendor email="nhitbh@gmail.com" url="https://www.fooock.com">fooock</vendor>
+
+    <description><![CDATA[
+    Solidity support for Jetbrains IDEs.<br>
+    <em>Currently in alpha</em>
+    ]]></description>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+    </actions>
+</idea-plugin>
