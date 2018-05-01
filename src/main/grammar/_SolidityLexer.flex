@@ -29,6 +29,7 @@ SPACE=[ \t\n\x0B\f\r]+
 IDENTIFIER=[a-zA-Z_$][a-zA-Z_$0-9]*
 PRAGMA_VERSION=[0-9].[0-9].[0-9]+
 STRING_LITERAL=(\"([^\"\r\n\\]|\\.)*\")
+COMMENT="/"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+"/"
 
 %%
 <YYINITIAL> {
@@ -84,6 +85,7 @@ STRING_LITERAL=(\"([^\"\r\n\\]|\\.)*\")
   {IDENTIFIER}          { return IDENTIFIER; }
   {PRAGMA_VERSION}      { return PRAGMA_VERSION; }
   {STRING_LITERAL}      { return STRING_LITERAL; }
+  {COMMENT}             { return COMMENT; }
 
 }
 
