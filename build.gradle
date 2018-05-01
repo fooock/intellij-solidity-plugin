@@ -1,7 +1,18 @@
+buildscript {
+    repositories {
+        maven { url 'https://jitpack.io' }
+    }
+    dependencies {
+        classpath "com.github.JetBrains:gradle-grammar-kit-plugin:2018.1.1"
+    }
+}
+
 plugins {
     id 'java'
     id 'org.jetbrains.intellij' version '0.3.1'
 }
+
+apply plugin: 'org.jetbrains.grammarkit'
 
 group 'com.fooock'
 version '0.1.0'
@@ -16,13 +27,32 @@ dependencies {
     testCompile group: 'junit', name: 'junit', version: '4.12'
 }
 
+sourceSets.main {
+    java.srcDirs 'src/main/gen', 'src/main/java'
+}
+
 intellij {
     version '2018.1.2'
 }
 
-patchPluginXml {
-    changeNotes """
-      Add change notes here.<br>
-      <em>most HTML tags may be used</em>
-      """
+import org.jetbrains.grammarkit.tasks.*
+
+task generateSolidityParser(type: GenerateParser) {
+    source = "src/main/grammar/SolidityParser.bnf"
+    targetRoot = 'src/main/gen'
+    pathToParser = '/com/fooock/solidity/lang/parser/SolidityParser.java'
+    pathToPsiRoot = '/com/fooock/solidity/lang/psi'
+    purgeOldFiles = true
+}
+
+task generateSolidityLexer(type: GenerateLexer) {
+    dependsOn generateSolidityParser
+    source = "src/main/grammar/_SolidityLexer.flex"
+    targetDir = "src/main/gen/com/fooock/solidity/lang/lexer/"
+    targetClass = "_SolidityLexer"
+    purgeOldFiles = true
+}
+
+compileJava {
+    //dependsOn generateSolidityLexer
 }
