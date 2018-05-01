@@ -13,3 +13,10 @@ this, a manual change is needed:
 - package com.fooock.solidity.lang.parser;
 + package com.fooock.solidity.lang.lexer;
 ```
+
+## Notes
+Notes about how I implementes the [`SolidityParser.bnf`](SolidityParser.bnf)
+
+* `pragma` support `^` and much more complex rules like those used by
+[npm](https://docs.npmjs.com/misc/semver). At this moment: `>`, `>=`, 
+`<`, `<=` and `=`.

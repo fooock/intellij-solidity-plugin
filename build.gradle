@@ -54,5 +54,5 @@ task generateSolidityLexer(type: GenerateLexer) {
 }
 
 compileJava {
-    //dependsOn generateSolidityLexer
+    dependsOn generateSolidityLexer
 }

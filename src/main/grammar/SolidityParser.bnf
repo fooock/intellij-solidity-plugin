@@ -54,7 +54,28 @@
         SHIFT_RIGHT        = '>>'
         GREATER_OR_EQUAL   = '>='
         GREATER            = '>'
-        SPACE              = 'regex:\s+'
+        SPACE              = 'regexp:\s+'
+        PRAGMA_NAME        = 'pragma'
+        IDENTIFIER         = 'regexp:[a-zA-Z_$][a-zA-Z_$0-9]*'
+        PRAGMA_VERSION     = 'regexp:[0-9].[0-9].[0-9]+'
     ]
 }
+
+File ::= (PragmaDirective)*
+
+//
+//  _ __  _ __ __ _  __ _ _ __ ___   __ _
+// | '_ \| '__/ _` |/ _` | '_ ` _ \ / _` |
+// | |_) | | | (_| | (_| | | | | | | (_| |
+// | .__/|_|  \__,_|\__, |_| |_| |_|\__,_|
+// | |               __/ |
+// |_|              |___/
+//
+
+PragmaDirective ::= PRAGMA_NAME PragmaEntity PragmaSemVersion ';'
+PragmaEntity ::= IDENTIFIER
+PragmaSemVersion ::= PragmaSymbol? PragmaVersionNumber
+PragmaSymbol ::= ( '^' | '>' | '>=' | '<' | '<=' | '=' )
+PragmaVersionNumber ::= PRAGMA_VERSION
+
 
