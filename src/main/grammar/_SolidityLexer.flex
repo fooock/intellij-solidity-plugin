@@ -28,6 +28,7 @@ WHITE_SPACE=\s+
 SPACE=[ \t\n\x0B\f\r]+
 IDENTIFIER=[a-zA-Z_$][a-zA-Z_$0-9]*
 PRAGMA_VERSION=[0-9].[0-9].[0-9]+
+STRING_LITERAL=(\"([^\"\r\n\\]|\\.)*\")
 
 %%
 <YYINITIAL> {
@@ -74,11 +75,15 @@ PRAGMA_VERSION=[0-9].[0-9].[0-9]+
   ">>"                  { return SHIFT_RIGHT; }
   ">="                  { return GREATER_OR_EQUAL; }
   ">"                   { return GREATER; }
-  "pragma"              { return PRAGMA_NAME; }
+  "pragma"              { return PRAGMA; }
+  "import"              { return IMPORT; }
+  "as"                  { return AS; }
+  "from"                { return FROM; }
 
   {SPACE}               { return SPACE; }
   {IDENTIFIER}          { return IDENTIFIER; }
   {PRAGMA_VERSION}      { return PRAGMA_VERSION; }
+  {STRING_LITERAL}      { return STRING_LITERAL; }
 
 }
 

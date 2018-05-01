@@ -55,13 +55,13 @@
         GREATER_OR_EQUAL   = '>='
         GREATER            = '>'
         SPACE              = 'regexp:\s+'
-        PRAGMA_NAME        = 'pragma'
         IDENTIFIER         = 'regexp:[a-zA-Z_$][a-zA-Z_$0-9]*'
         PRAGMA_VERSION     = 'regexp:[0-9].[0-9].[0-9]+'
+        STRING_LITERAL     = 'regexp:("([^"\r\n\\]|\\.)*")'
     ]
 }
 
-File ::= (PragmaDirective)*
+File ::= (PragmaDirective | ImportDirective)*
 
 //
 //  _ __  _ __ __ _  __ _ _ __ ___   __ _
@@ -72,10 +72,24 @@ File ::= (PragmaDirective)*
 // |_|              |___/
 //
 
-PragmaDirective ::= PRAGMA_NAME PragmaEntity PragmaSemVersion ';'
+PragmaDirective ::= pragma PragmaEntity PragmaSemVersion ';'
 PragmaEntity ::= IDENTIFIER
 PragmaSemVersion ::= PragmaSymbol? PragmaVersionNumber
 PragmaSymbol ::= ( '^' | '>' | '>=' | '<' | '<=' | '=' )
 PragmaVersionNumber ::= PRAGMA_VERSION
 
+
+//  _                            _
+// (_)                          | |
+//  _ _ __ ___  _ __   ___  _ __| |_ ___
+// | | '_ ` _ \| '_ \ / _ \| '__| __/ __|
+// | | | | | | | |_) | (_) | |  | |_\__ \
+// |_|_| |_| |_| .__/ \___/|_|   \__|___/
+//             | |
+//             |_|
+
+ImportDirective ::= (ImportSimple | ImportFrom | ImportComplex) ';'
+ImportSimple ::= import STRING_LITERAL (as IDENTIFIER)?
+ImportFrom ::= import ('*' | IDENTIFIER) (as IDENTIFIER)? from STRING_LITERAL
+ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER)? )* '}' from STRING_LITERAL
 
