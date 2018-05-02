@@ -30,7 +30,7 @@ IDENTIFIER=[a-zA-Z_$][a-zA-Z_$0-9]*
 PRAGMA_VERSION=[0-9].[0-9].[0-9]+
 STRING_LITERAL=(\"([^\"\r\n\\]|\\.)*\")
 COMMENT="/"([^*]|[\r\n]|(\*+([^*/]|[\r\n])))*\*+"/"
-HEX_NUMBER=(^0x[0-9a-fA-F]+)|(hex\"([0-9a-fA-F]+)\")
+HEX_NUMBER=(0x[0-9a-fA-F]+)|(hex\"([0-9a-fA-F]+)\")
 DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
 
 %%
