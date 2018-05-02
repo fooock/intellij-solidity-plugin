@@ -20,3 +20,7 @@ Notes about how I implementes the [`SolidityParser.bnf`](SolidityParser.bnf)
 * `pragma` support `^` and much more complex rules like those used by
 [npm](https://docs.npmjs.com/misc/semver). At this moment: `>`, `>=`, 
 `<`, `<=` and `=`.
+* See [this document](https://github.com/ethereum/solidity/blob/develop/docs/miscellaneous.rst) for 
+order of precedence of operators
+* See [Solidity types](https://solidity.readthedocs.io/en/latest/types.html)
+* See [units and globally available variables](https://solidity.readthedocs.io/en/latest/units-and-global-variables.html)
