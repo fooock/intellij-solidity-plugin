@@ -64,11 +64,13 @@
         EXPONENT           = '**'
         HEX_NUMBER         = 'regexp:(0x[0-9a-fA-F]+)|(hex"([0-9a-fA-F]+)")'
         DECIMAL_NUMBER     = 'regexp:[0-9]+(\.[0-9]*)?([eE][0-9]+)?'
+        FUNCTION_KW        = 'function'
 
         // FIXED_TYPE_NUMBER  = 'regexp:fixed(8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)x[0-80])'
         // UFIXED_TYPE_NUMBER = 'regexp:ufixed(8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)x[0-80])'
     ]
     extends(".*Expression")=Expression
+    extends(".*TypeName")=TypeName
 }
 
 File ::= (PragmaDirective | ImportDirective | ContractStructure)*
@@ -113,7 +115,7 @@ ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDE
 //
 
 ContractStructure ::= (contract | library | interface) IDENTIFIER (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
-InheritanceSpecifier ::= UserDefinedType ('(' Expression (',' Expression)* ')' )?
+InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
 ContractContent ::= IDENTIFIER
 
 
@@ -127,15 +129,20 @@ ContractContent ::= IDENTIFIER
 //      |___/|_|
 //
 
-TypeName ::= ElementTypeLiteral | UserDefinedType | MappingType
+TypeName ::= ElementTypeName | UserDefinedTypeName | MappingTypeName | ArrayTypeName | FunctionTypeName
 
 private StringLiteral ::= STRING_LITERAL
 
 BooleanLiteral ::= (true | false)
 NumberLiteral ::= (HEX_NUMBER | DECIMAL_NUMBER) NumberUnit?
-ElementTypeLiteral ::= (address | bool | string | var | Integer | UnsignedInt | Bytes)
-UserDefinedType ::= IDENTIFIER ('.' IDENTIFIER)*
-MappingType ::= mapping '(' ElementTypeLiteral '=>' TypeName ')'
+ElementTypeName ::= (address | bool | string | var | Integer | UnsignedInt | Bytes)
+UserDefinedTypeName ::= IDENTIFIER ('.' IDENTIFIER)*
+MappingTypeName ::= mapping '(' ElementTypeName '=>' TypeName ')'
+ArrayTypeName ::= TypeName '[' Expression? ']'
+FunctionTypeName ::= FUNCTION_KW FunctionTypeParameterList FunctionVisibility* (returns FunctionTypeParameterList)?
+
+FunctionTypeParameterList ::= '(' (FunctionTypeParameter (',' FunctionTypeParameter)* )? ')'
+FunctionTypeParameter ::= TypeName StorageLocation?
 
 Integer ::= (int | int8 | int16 | int24 | int32 | int40 | int48 | int56 | int64 | int72 | int80 | int88 | int96 | int104 | int112 | int120 | int128 | int136 | int144 | int152 | int160 | int168 | int176 | int184 | int192 | int200 | int208 | int216 | int224 | int232 | int240 | int248 | int256)
 UnsignedInt ::= (uint | uint8 | uint16 | uint24 | uint32 | uint40 | uint48 | uint56 | uint64 | uint72 | uint80 | uint88 | uint96 | uint104 | uint112 | uint120 | uint128 | uint136 | uint144 | uint152 | uint160 | uint168 | uint176 | uint184 | uint192 | uint200 | uint208 | uint216 | uint224 | uint232 | uint240 | uint248 | uint256)
@@ -143,10 +150,6 @@ Bytes ::= (byte | bytes1 | bytes2 | bytes3 | bytes4 | bytes5 | bytes6 | bytes7 |
 
 // Fixed ::= FIXED_TYPE_NUMBER
 // UnsignedFixed ::= UFIXED_TYPE_NUMBER
-
-NumberUnit ::= EtherUnits | TimeUnits
-EtherUnits ::= (wei | finney | szabo | ether)
-TimeUnits ::= (seconds | minutes | hours | days | weeks | years)
 
 
 //                                    _
@@ -225,7 +228,7 @@ AssignmentExpression ::=
         QUOTIENT_ASSIGN |
         REMAINDER_ASSIGN)
     Expression
-PrimaryExpression ::= BooleanLiteral | NumberLiteral | StringLiteral | TupleExpression | ElementTypeLiteral | IDENTIFIER
+PrimaryExpression ::= BooleanLiteral | NumberLiteral | StringLiteral | TupleExpression | ElementTypeName | IDENTIFIER
 
 TupleExpression ::=
     '(' (Expression? (',' Expression? )* )? ')' |
@@ -240,3 +243,12 @@ TupleExpression ::=
 
 FunctionCallArguments ::= '{' NameValueList? '}' | ExpressionList?
 NameValueList ::= IDENTIFIER ':' Expression (',' IDENTIFIER ':' Expression)*
+
+NumberUnit ::= EtherUnits | TimeUnits
+EtherUnits ::= (wei | finney | szabo | ether)
+TimeUnits ::= (seconds | minutes | hours | days | weeks | years)
+
+StorageLocation ::= (memory | storage)
+
+FunctionVisibility ::= (internal | external | FunctionStateMutability)
+FunctionStateMutability ::= (pure | constant | view | payable)
