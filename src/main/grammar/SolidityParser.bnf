@@ -64,7 +64,6 @@
         EXPONENT           = '**'
         HEX_NUMBER         = 'regexp:(0x[0-9a-fA-F]+)|(hex"([0-9a-fA-F]+)")'
         DECIMAL_NUMBER     = 'regexp:[0-9]+(\.[0-9]*)?([eE][0-9]+)?'
-        FUNCTION_KW        = 'function'
 
         // FIXED_TYPE_NUMBER  = 'regexp:fixed(8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)x[0-80])'
         // UFIXED_TYPE_NUMBER = 'regexp:ufixed(8|16|24|32|40|48|56|64|72|80|88|96|104|112|120|128|136|144|152|160|168|176|184|192|200|208|216|224|232|240|248|256)x[0-80])'
@@ -116,7 +115,7 @@ ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDE
 
 ContractStructure ::= (contract | library | interface) IDENTIFIER (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
-ContractContent ::= IDENTIFIER
+ContractContent ::= EventDefinition
 
 
 //  _
@@ -139,7 +138,7 @@ ElementTypeName ::= (address | bool | string | var | Integer | UnsignedInt | Byt
 UserDefinedTypeName ::= IDENTIFIER ('.' IDENTIFIER)*
 MappingTypeName ::= mapping '(' ElementTypeName '=>' TypeName ')'
 ArrayTypeName ::= TypeName '[' Expression? ']'
-FunctionTypeName ::= FUNCTION_KW FunctionTypeParameterList FunctionVisibility* (returns FunctionTypeParameterList)?
+FunctionTypeName ::= function FunctionTypeParameterList FunctionVisibility* (returns FunctionTypeParameterList)?
 
 FunctionTypeParameterList ::= '(' (FunctionTypeParameter (',' FunctionTypeParameter)* )? ')'
 FunctionTypeParameter ::= TypeName StorageLocation?
@@ -252,3 +251,17 @@ StorageLocation ::= (memory | storage)
 
 FunctionVisibility ::= (internal | external | FunctionStateMutability)
 FunctionStateMutability ::= (pure | constant | view | payable)
+
+
+//                       _
+//                      | |
+//   _____   _____ _ __ | |_ ___
+//  / _ \ \ / / _ \ '_ \| __/ __|
+// |  __/\ V /  __/ | | | |_\__ \
+//  \___| \_/ \___|_| |_|\__|___/
+//
+
+EventDefinition ::= event IDENTIFIER EventParameterList (anonymous)? ';'
+EventParameterList ::= '(' (EventParameter (',' EventParameter)* )? ')'
+EventParameter ::= TypeName (indexed)? IDENTIFIER?
+
