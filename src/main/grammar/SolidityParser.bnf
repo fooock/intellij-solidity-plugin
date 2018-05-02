@@ -115,7 +115,12 @@ ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDE
 
 ContractStructure ::= (contract | library | interface) IDENTIFIER (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
-ContractContent ::= EventDefinition
+ContractContent ::= EventDefinition | ContractStateVariableDeclaration | UsingForDeclaration | StructDefinition | ModifierDefinition
+
+ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
+UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';'
+StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}'
+ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block
 
 
 //  _
@@ -143,12 +148,12 @@ FunctionTypeName ::= function FunctionTypeParameterList FunctionVisibility* (ret
 FunctionTypeParameterList ::= '(' (FunctionTypeParameter (',' FunctionTypeParameter)* )? ')'
 FunctionTypeParameter ::= TypeName StorageLocation?
 
+ParameterList ::= '(' (Parameter (',' Parameter)* )? ')'
+Parameter ::= TypeName StorageLocation? (IDENTIFIER)?
+
 Integer ::= (int | int8 | int16 | int24 | int32 | int40 | int48 | int56 | int64 | int72 | int80 | int88 | int96 | int104 | int112 | int120 | int128 | int136 | int144 | int152 | int160 | int168 | int176 | int184 | int192 | int200 | int208 | int216 | int224 | int232 | int240 | int248 | int256)
 UnsignedInt ::= (uint | uint8 | uint16 | uint24 | uint32 | uint40 | uint48 | uint56 | uint64 | uint72 | uint80 | uint88 | uint96 | uint104 | uint112 | uint120 | uint128 | uint136 | uint144 | uint152 | uint160 | uint168 | uint176 | uint184 | uint192 | uint200 | uint208 | uint216 | uint224 | uint232 | uint240 | uint248 | uint256)
 Bytes ::= (byte | bytes1 | bytes2 | bytes3 | bytes4 | bytes5 | bytes6 | bytes7 | bytes8 | bytes9 | bytes10 | bytes11 | bytes12 | bytes13 | bytes14 | bytes15 | bytes16 | bytes17 | bytes18 | bytes19 | bytes20 | bytes21 | bytes22 | bytes23 | bytes24 | bytes25 | bytes26 | bytes27 | bytes28 | bytes29 | bytes30 | bytes31 | bytes32)
-
-// Fixed ::= FIXED_TYPE_NUMBER
-// UnsignedFixed ::= UFIXED_TYPE_NUMBER
 
 
 //                                    _
@@ -252,6 +257,11 @@ StorageLocation ::= (memory | storage)
 FunctionVisibility ::= (internal | external | FunctionStateMutability)
 FunctionStateMutability ::= (pure | constant | view | payable)
 
+ContractStateVariableVisibility ::= (public | internal | private | constant)
+VariableDeclaration ::= TypeName StorageLocation? IDENTIFIER
+
+Block ::= '{' Statement* '}'
+
 
 //                       _
 //                      | |
@@ -265,3 +275,16 @@ EventDefinition ::= event IDENTIFIER EventParameterList (anonymous)? ';'
 EventParameterList ::= '(' (EventParameter (',' EventParameter)* )? ')'
 EventParameter ::= TypeName (indexed)? IDENTIFIER?
 
+
+//      _        _                            _
+//     | |      | |                          | |
+//  ___| |_ __ _| |_ ___ _ __ ___   ___ _ __ | |_ ___
+// / __| __/ _` | __/ _ \ '_ ` _ \ / _ \ '_ \| __/ __|
+// \__ \ || (_| | ||  __/ | | | | |  __/ | | | |_\__ \
+// |___/\__\__,_|\__\___|_| |_| |_|\___|_| |_|\__|___/
+//
+
+// TODO: Finish statements
+Statement ::= IfStatement | WhileStatement
+IfStatement ::= if '(' Expression ')' Statement (else Statement)?
+WhileStatement ::= while '(' Expression ')' Statement

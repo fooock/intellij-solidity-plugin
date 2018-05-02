@@ -89,6 +89,10 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "library"             { return LIBRARY; }
   "interface"           { return INTERFACE; }
   "is"                  { return IS; }
+  "using"               { return USING; }
+  "for"                 { return FOR; }
+  "struct"              { return STRUCT; }
+  "modifier"            { return MODIFIER; }
   "true"                { return TRUE; }
   "false"               { return FALSE; }
   "address"             { return ADDRESS; }
@@ -96,6 +100,8 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "string"              { return STRING; }
   "var"                 { return VAR; }
   "mapping"             { return MAPPING; }
+  "function"            { return FUNCTION; }
+  "returns"             { return RETURNS; }
   "int"                 { return INT; }
   "int8"                { return INT8; }
   "int16"               { return INT16; }
@@ -195,6 +201,7 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "bytes30"             { return BYTES30; }
   "bytes31"             { return BYTES31; }
   "bytes32"             { return BYTES32; }
+  "new"                 { return NEW; }
   "wei"                 { return WEI; }
   "finney"              { return FINNEY; }
   "szabo"               { return SZABO; }
@@ -205,7 +212,22 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "days"                { return DAYS; }
   "weeks"               { return WEEKS; }
   "years"               { return YEARS; }
-  "new"                 { return NEW; }
+  "memory"              { return MEMORY; }
+  "storage"             { return STORAGE; }
+  "internal"            { return INTERNAL; }
+  "external"            { return EXTERNAL; }
+  "pure"                { return PURE; }
+  "constant"            { return CONSTANT; }
+  "view"                { return VIEW; }
+  "payable"             { return PAYABLE; }
+  "public"              { return PUBLIC; }
+  "private"             { return PRIVATE; }
+  "event"               { return EVENT; }
+  "anonymous"           { return ANONYMOUS; }
+  "indexed"             { return INDEXED; }
+  "if"                  { return IF; }
+  "else"                { return ELSE; }
+  "while"               { return WHILE; }
 
   {SPACE}               { return SPACE; }
   {IDENTIFIER}          { return IDENTIFIER; }
