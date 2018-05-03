@@ -222,12 +222,14 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "payable"             { return PAYABLE; }
   "public"              { return PUBLIC; }
   "private"             { return PRIVATE; }
+  "let"                 { return LET; }
   "event"               { return EVENT; }
   "anonymous"           { return ANONYMOUS; }
   "indexed"             { return INDEXED; }
   "if"                  { return IF; }
   "else"                { return ELSE; }
   "while"               { return WHILE; }
+  "assembly"            { return ASSEMBLY; }
 
   {SPACE}               { return SPACE; }
   {IDENTIFIER}          { return IDENTIFIER; }

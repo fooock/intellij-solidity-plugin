@@ -169,32 +169,31 @@ IdentifierList ::= '(' ((IDENTIFIER)? ',' )* (IDENTIFIER)? ')'
 //           |_|
 //
 
-Expression ::=
-    PostfixIncDecExpression |
-    NewExpression |
-    ArrayIndexExpression |
-    MemberAccessExpression |
-    FunctionCallExpression |
-    ParenthesesExpression |
-    PrefixIncDecExpression |
-    UnaryPlusMinusExpression |
-    UnaryOperationExpression |
-    LogicalNotExpression |
-    BitwiseNotExpression |
-    ExponentiationExpression |
-    MulDivModExpression |
-    AddSubExpression |
-    BitwiseShiftExpression |
-    BitwiseAndExpression |
-    BitwiseXorExpression |
-    BitwiseOrExpression |
-    InequalityExpression |
-    EqualityExpression |
-    LogicalAndExpression |
-    LogicalOrExpression |
-    TernaryExpression |
-    AssignmentExpression |
-    PrimaryExpression
+Expression ::= PostfixIncDecExpression
+    | NewExpression
+    | ArrayIndexExpression
+    | MemberAccessExpression
+    | FunctionCallExpression
+    | ParenthesesExpression
+    | PrefixIncDecExpression
+    | UnaryPlusMinusExpression
+    | UnaryOperationExpression
+    | LogicalNotExpression
+    | BitwiseNotExpression
+    | ExponentiationExpression
+    | MulDivModExpression
+    | AddSubExpression
+    | BitwiseShiftExpression
+    | BitwiseAndExpression
+    | BitwiseXorExpression
+    | BitwiseOrExpression
+    | InequalityExpression
+    | EqualityExpression
+    | LogicalAndExpression
+    | LogicalOrExpression
+    | TernaryExpression
+    | AssignmentExpression
+    | PrimaryExpression
 
 ExpressionList ::= Expression (',' Expression)*
 
@@ -222,20 +221,24 @@ LogicalAndExpression ::= Expression (COND_AND) Expression
 LogicalOrExpression ::= Expression (COND_OR) Expression
 TernaryExpression ::= Expression '?' Expression ':' Expression
 AssignmentExpression ::=
-    Expression (
-        ASSIGN |
-        BIT_OR_ASSIGN |
-        BIT_XOR_ASSIGN |
-        BIT_AND_ASSIGN |
-        SHIFT_LEFT_ASSIGN |
-        SHIFT_RIGHT_ASSIGN |
-        PLUS_ASSIGN |
-        MINUS_ASSIGN |
-        MUL_ASSIGN |
-        QUOTIENT_ASSIGN |
-        REMAINDER_ASSIGN)
+    Expression (ASSIGN
+        | BIT_OR_ASSIGN
+        | BIT_XOR_ASSIGN
+        | BIT_AND_ASSIGN
+        | SHIFT_LEFT_ASSIGN
+        | SHIFT_RIGHT_ASSIGN
+        | PLUS_ASSIGN
+        | MINUS_ASSIGN
+        | MUL_ASSIGN
+        | QUOTIENT_ASSIGN
+        | REMAINDER_ASSIGN)
     Expression
-PrimaryExpression ::= BooleanLiteral | NumberLiteral | StringLiteral | TupleExpression | ElementTypeName | IDENTIFIER
+PrimaryExpression ::= BooleanLiteral
+    | NumberLiteral
+    | StringLiteral
+    | TupleExpression
+    | ElementTypeName
+    | IDENTIFIER
 
 TupleExpression ::=
     '(' (Expression? (',' Expression? )* )? ')' |
@@ -267,7 +270,16 @@ VariableDeclaration ::= TypeName StorageLocation? IDENTIFIER
 
 Block ::= '{' Statement* '}'
 InlineAssemblyBlock ::= '{' AssemblyItem* '}'
-AssemblyItem ::= IDENTIFIER | FunctionalAssemblyExpression | InlineAssemblyBlock | AssemblyLocalBinding | AssemblyAssignment | AssemblyLabel | NumberLiteral | STRING_LITERAL | HEX_NUMBER
+AssemblyItem ::= IDENTIFIER
+    | FunctionalAssemblyExpression
+    | InlineAssemblyBlock
+    | AssemblyLocalBinding
+    | AssemblyAssignment
+    | AssemblyLabel
+    | NumberLiteral
+    | STRING_LITERAL
+    | HEX_NUMBER
+
 AssemblyLocalBinding ::= let IDENTIFIER ':=' FunctionalAssemblyExpression
 AssemblyAssignment ::= (IDENTIFIER ':=' FunctionalAssemblyExpression) | (':=' IDENTIFIER)
 AssemblyLabel ::= IDENTIFIER ':'
@@ -294,7 +306,12 @@ EventParameter ::= TypeName (indexed)? IDENTIFIER?
 //
 
 // TODO: Finish statements
-Statement ::= IfStatement | WhileStatement | ForStatement | Block | InlineAssemblyStatement
+Statement ::= IfStatement
+    | WhileStatement
+    | ForStatement
+    | Block
+    | InlineAssemblyStatement
+
 IfStatement ::= if '(' Expression ')' Statement (else Statement)?
 WhileStatement ::= while '(' Expression ')' Statement
 SimpleStatement ::= VariableDefinition | ExpressionStatement
