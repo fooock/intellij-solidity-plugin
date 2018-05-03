@@ -93,6 +93,13 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "for"                 { return FOR; }
   "struct"              { return STRUCT; }
   "modifier"            { return MODIFIER; }
+  "enum"                { return ENUM; }
+  "function"            { return FUNCTION; }
+  "external"            { return EXTERNAL; }
+  "public"              { return PUBLIC; }
+  "internal"            { return INTERNAL; }
+  "private"             { return PRIVATE; }
+  "returns"             { return RETURNS; }
   "true"                { return TRUE; }
   "false"               { return FALSE; }
   "address"             { return ADDRESS; }
@@ -100,8 +107,6 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "string"              { return STRING; }
   "var"                 { return VAR; }
   "mapping"             { return MAPPING; }
-  "function"            { return FUNCTION; }
-  "returns"             { return RETURNS; }
   "int"                 { return INT; }
   "int8"                { return INT8; }
   "int16"               { return INT16; }
@@ -214,14 +219,10 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "years"               { return YEARS; }
   "memory"              { return MEMORY; }
   "storage"             { return STORAGE; }
-  "internal"            { return INTERNAL; }
-  "external"            { return EXTERNAL; }
   "pure"                { return PURE; }
   "constant"            { return CONSTANT; }
   "view"                { return VIEW; }
   "payable"             { return PAYABLE; }
-  "public"              { return PUBLIC; }
-  "private"             { return PRIVATE; }
   "let"                 { return LET; }
   "event"               { return EVENT; }
   "anonymous"           { return ANONYMOUS; }
@@ -230,6 +231,12 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "else"                { return ELSE; }
   "while"               { return WHILE; }
   "assembly"            { return ASSEMBLY; }
+  "do"                  { return DO; }
+  "continue"            { return CONTINUE; }
+  "break"               { return BREAK; }
+  "return"              { return RETURN; }
+  "throw"               { return THROW; }
+  "emit"                { return EMIT; }
 
   {SPACE}               { return SPACE; }
   {IDENTIFIER}          { return IDENTIFIER; }

@@ -121,11 +121,13 @@ ContractContent ::= EventDefinition
     | StructDefinition
     | ModifierDefinition
     | FunctionDefinition
+    | EnumDefinition
 
 ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
 UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';'
 StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}'
 ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block
+EnumDefinition ::= enum IDENTIFIER '{' EnumValue? (',' EnumValue)* '}'
 
 FunctionDefinition ::= function (IDENTIFIER)? ParameterList
     (ModifierFunctionInvocation | FunctionStateMutability | external | public | internal | private)*
@@ -167,6 +169,8 @@ Bytes ::= (byte | bytes1 | bytes2 | bytes3 | bytes4 | bytes5 | bytes6 | bytes7 |
 
 VariableDefinition ::= (var (IdentifierList | VariableDeclaration) ) ('=' IDENTIFIER)?
 IdentifierList ::= '(' ((IDENTIFIER)? ',' )* (IDENTIFIER)? ')'
+
+EnumValue::= IDENTIFIER
 
 
 //                                    _
@@ -339,6 +343,6 @@ DoWhileStatement ::= do '(' Statement while '(' Expression ')'
 PlaceholderStatement ::= '_'
 ContinueStatement ::= continue
 BreakStatement ::= break
-ReturnStatement ::= return
+ReturnStatement ::= return Expression?
 ThrowStatement ::= throw
 EmitStatement ::= emit FunctionCallExpression
