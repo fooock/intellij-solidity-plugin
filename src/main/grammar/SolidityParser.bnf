@@ -115,13 +115,23 @@ ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDE
 
 ContractStructure ::= (contract | library | interface) IDENTIFIER (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
-ContractContent ::= EventDefinition | ContractStateVariableDeclaration | UsingForDeclaration | StructDefinition | ModifierDefinition
+ContractContent ::= EventDefinition
+    | ContractStateVariableDeclaration
+    | UsingForDeclaration
+    | StructDefinition
+    | ModifierDefinition
+    | FunctionDefinition
 
 ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
 UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';'
 StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}'
 ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block
 
+FunctionDefinition ::= function (IDENTIFIER)? ParameterList
+    (ModifierFunctionInvocation | FunctionStateMutability | external | public | internal | private)*
+    (returns ParameterList)? (';' | Block)
+
+ModifierFunctionInvocation ::= IDENTIFIER ( '(' ExpressionList? ')' )?
 
 //  _
 // | |
