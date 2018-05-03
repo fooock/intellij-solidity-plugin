@@ -305,12 +305,19 @@ EventParameter ::= TypeName (indexed)? IDENTIFIER?
 // |___/\__\__,_|\__\___|_| |_| |_|\___|_| |_|\__|___/
 //
 
-// TODO: Finish statements
 Statement ::= IfStatement
     | WhileStatement
     | ForStatement
     | Block
     | InlineAssemblyStatement
+    | (DoWhileStatement
+    | PlaceholderStatement
+    | ContinueStatement
+    | BreakStatement
+    | ReturnStatement
+    | ThrowStatement
+    | EmitStatement
+    | SimpleStatement) ';'
 
 IfStatement ::= if '(' Expression ')' Statement (else Statement)?
 WhileStatement ::= while '(' Expression ')' Statement
@@ -318,3 +325,10 @@ SimpleStatement ::= VariableDefinition | ExpressionStatement
 ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (ExpressionStatement)? ')' Statement
 ExpressionStatement ::= Expression
 InlineAssemblyStatement ::= assembly (STRING_LITERAL)? InlineAssemblyBlock
+DoWhileStatement ::= do '(' Statement while '(' Expression ')'
+PlaceholderStatement ::= '_'
+ContinueStatement ::= continue
+BreakStatement ::= break
+ReturnStatement ::= return
+ThrowStatement ::= throw
+EmitStatement ::= emit FunctionCallExpression
