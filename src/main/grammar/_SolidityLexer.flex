@@ -85,10 +85,10 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "import"              { return IMPORT; }
   "as"                  { return AS; }
   "from"                { return FROM; }
+  "is"                  { return IS; }
   "contract"            { return CONTRACT; }
   "library"             { return LIBRARY; }
   "interface"           { return INTERFACE; }
-  "is"                  { return IS; }
   "using"               { return USING; }
   "for"                 { return FOR; }
   "struct"              { return STRUCT; }

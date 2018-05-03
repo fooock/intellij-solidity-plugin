@@ -83,7 +83,7 @@ File ::= (PragmaDirective | ImportDirective | ContractStructure)*
 // |_|              |___/
 //
 
-PragmaDirective ::= pragma PragmaEntity PragmaSemVersion ';'
+PragmaDirective ::= pragma PragmaEntity PragmaSemVersion ';' { pin = 1 }
 PragmaEntity ::= IDENTIFIER
 PragmaSemVersion ::= PragmaSymbol? PragmaVersionNumber
 PragmaSymbol ::= ( '^' | '>' | '>=' | '<' | '<=' | '=' )
@@ -99,10 +99,10 @@ PragmaVersionNumber ::= PRAGMA_VERSION
 //             | |
 //             |_|
 
-ImportDirective ::= (ImportSimple | ImportFrom | ImportComplex) ';'
-ImportSimple ::= import STRING_LITERAL (as IDENTIFIER)?
-ImportFrom ::= import ('*' | IDENTIFIER) (as IDENTIFIER)? from STRING_LITERAL
-ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER)? )* '}' from STRING_LITERAL
+ImportDirective ::= import (ImportSimple | ImportFrom | ImportComplex) ';' { pin = 1 }
+ImportSimple ::= STRING_LITERAL (as IDENTIFIER)?
+ImportFrom ::= ('*' | IDENTIFIER) (as IDENTIFIER)? from STRING_LITERAL
+ImportComplex ::= '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER)? )* '}' from STRING_LITERAL
 
 
 //                  _                  _
@@ -113,7 +113,8 @@ ImportComplex ::= import '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDE
 //  \___\___/|_| |_|\__|_|  \__,_|\___|\__|
 //
 
-ContractStructure ::= (contract | library | interface) IDENTIFIER (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
+ContractStructure ::= ContractDirective (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
+ContractDirective ::= (contract | library | interface) IDENTIFIER { pin = 1 }
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
 ContractContent ::= EventDefinition
     | ContractStateVariableDeclaration
@@ -124,14 +125,14 @@ ContractContent ::= EventDefinition
     | EnumDefinition
 
 ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
-UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';'
-StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}'
-ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block
-EnumDefinition ::= enum IDENTIFIER '{' EnumValue? (',' EnumValue)* '}'
+UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';' { pin = 1 }
+StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}' { pin = 1 }
+ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block { pin = 1 }
+EnumDefinition ::= enum IDENTIFIER '{' EnumValue? (',' EnumValue)* '}' { pin = 1 }
 
 FunctionDefinition ::= function (IDENTIFIER)? ParameterList
     (ModifierFunctionInvocation | FunctionStateMutability | external | public | internal | private)*
-    (returns ParameterList)? (';' | Block)
+    (returns ParameterList)? (';' | Block) { pin = 1 }
 
 ModifierFunctionInvocation ::= IDENTIFIER ( '(' ExpressionList? ')' )?
 
@@ -153,9 +154,9 @@ BooleanLiteral ::= (true | false)
 NumberLiteral ::= (HEX_NUMBER | DECIMAL_NUMBER) NumberUnit?
 ElementTypeName ::= (address | bool | string | var | Integer | UnsignedInt | Bytes)
 UserDefinedTypeName ::= IDENTIFIER ('.' IDENTIFIER)*
-MappingTypeName ::= mapping '(' ElementTypeName '=>' TypeName ')'
+MappingTypeName ::= mapping '(' ElementTypeName '=>' TypeName ')' { pin = 1 }
 ArrayTypeName ::= TypeName '[' Expression? ']'
-FunctionTypeName ::= function FunctionTypeParameterList FunctionVisibility* (returns FunctionTypeParameterList)?
+FunctionTypeName ::= function FunctionTypeParameterList FunctionVisibility* (returns FunctionTypeParameterList)? { pin = 1 }
 
 FunctionTypeParameterList ::= '(' (FunctionTypeParameter (',' FunctionTypeParameter)* )? ')'
 FunctionTypeParameter ::= TypeName StorageLocation?
@@ -212,7 +213,7 @@ Expression ::= PostfixIncDecExpression
 ExpressionList ::= Expression (',' Expression)*
 
 PostfixIncDecExpression ::= Expression (PLUS_PLUS | MINUS_MINUS)
-NewExpression ::= new TypeName
+NewExpression ::= new TypeName { pin = 1 }
 ArrayIndexExpression ::= Expression '[' Expression? ']'
 MemberAccessExpression ::= Expression '.' IDENTIFIER
 FunctionCallExpression ::= Expression '(' FunctionCallArguments ')'
@@ -282,7 +283,7 @@ FunctionStateMutability ::= (pure | constant | view | payable)
 ContractStateVariableVisibility ::= (public | internal | private | constant)
 VariableDeclaration ::= TypeName StorageLocation? IDENTIFIER
 
-Block ::= '{' Statement* '}'
+Block ::= '{' Statement* '}' { pin = 1 }
 InlineAssemblyBlock ::= '{' AssemblyItem* '}'
 AssemblyItem ::= IDENTIFIER
     | FunctionalAssemblyExpression
@@ -306,7 +307,7 @@ AssemblyLabel ::= IDENTIFIER ':'
 //  \___| \_/ \___|_| |_|\__|___/
 //
 
-EventDefinition ::= event IDENTIFIER EventParameterList (anonymous)? ';'
+EventDefinition ::= event IDENTIFIER EventParameterList (anonymous)? ';' { pin = 1 }
 EventParameterList ::= '(' (EventParameter (',' EventParameter)* )? ')'
 EventParameter ::= TypeName (indexed)? IDENTIFIER?
 
@@ -333,16 +334,16 @@ Statement ::= IfStatement
     | EmitStatement
     | SimpleStatement) ';'
 
-IfStatement ::= if '(' Expression ')' Statement (else Statement)?
-WhileStatement ::= while '(' Expression ')' Statement
+IfStatement ::= if '(' Expression ')' Statement (else Statement)? { pin = 1 }
+WhileStatement ::= while '(' Expression ')' Statement { pin = 1 }
 SimpleStatement ::= VariableDefinition | ExpressionStatement
-ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (ExpressionStatement)? ')' Statement
+ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (ExpressionStatement)? ')' Statement { pin = 1 }
 ExpressionStatement ::= Expression
-InlineAssemblyStatement ::= assembly (STRING_LITERAL)? InlineAssemblyBlock
-DoWhileStatement ::= do '(' Statement while '(' Expression ')'
+InlineAssemblyStatement ::= assembly (STRING_LITERAL)? InlineAssemblyBlock { pin = 1 }
+DoWhileStatement ::= do '(' Statement while '(' Expression ')' { pin = 1 }
 PlaceholderStatement ::= '_'
 ContinueStatement ::= continue
 BreakStatement ::= break
-ReturnStatement ::= return Expression?
+ReturnStatement ::= return Expression? { pin = 1 }
 ThrowStatement ::= throw
-EmitStatement ::= emit FunctionCallExpression
+EmitStatement ::= emit FunctionCallExpression { pin = 1 }
