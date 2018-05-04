@@ -116,12 +116,12 @@ ImportComplex ::= '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER
 ContractStructure ::= ContractDirective (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
 ContractDirective ::= (contract | library | interface) IDENTIFIER { pin = 1 }
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
-ContractContent ::= EventDefinition
-    | ContractStateVariableDeclaration
+ContractContent ::= ContractStateVariableDeclaration
     | UsingForDeclaration
     | StructDefinition
     | ModifierDefinition
     | FunctionDefinition
+    | EventDefinition
     | EnumDefinition
 
 ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
