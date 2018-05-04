@@ -10,7 +10,7 @@ import javax.swing.*;
  * Solidity file type
  */
 public class SolidityFileType extends LanguageFileType {
-    static final SolidityFileType INSTANCE = new SolidityFileType();
+    public static final SolidityFileType INSTANCE = new SolidityFileType();
 
     /**
      * Creates a language file type for the {@link SolidityLang} language.

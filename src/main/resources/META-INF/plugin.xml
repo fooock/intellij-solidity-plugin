@@ -16,6 +16,8 @@
 
     <extensions defaultExtensionNs="com.intellij">
         <fileTypeFactory implementation="com.fooock.solidity.lang.SolidityFileTypeFactory"/>
+        <lang.parserDefinition language="Solidity"
+                               implementationClass="com.fooock.solidity.lang.parser.SolidityParserDefinition"/>
     </extensions>
 
     <actions>
