@@ -58,7 +58,7 @@
         IDENTIFIER         = 'regexp:[a-zA-Z_$][a-zA-Z_$0-9]*'
         PRAGMA_VERSION     = 'regexp:[0-9].[0-9].[0-9]+'
         STRING_LITERAL     = 'regexp:("([^"\r\n\\]|\\.)*")'
-        COMMENT            = 'regexp:\\*[\s\S]*?\*/|([^\\:]|^)//.*$|(//.*)'
+        COMMENT            = 'regexp:/(\*([\s\S]*?)\*/)|(//(.*))'
         DELETE_OPERATOR    = 'delete'
         TILDE              = '~'
         EXPONENT           = '**'
@@ -114,7 +114,7 @@ ImportComplex ::= '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER
 //
 
 ContractStructure ::= ContractDirective (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
-ContractDirective ::= (contract | library | interface) IDENTIFIER { pin = 1 }
+ContractDirective ::= (contract | library | interface) IDENTIFIER
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
 ContractContent ::= ContractStateVariableDeclaration
     | UsingForDeclaration
