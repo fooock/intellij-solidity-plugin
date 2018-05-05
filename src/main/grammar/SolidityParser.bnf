@@ -252,8 +252,8 @@ PrimaryExpression ::= BooleanLiteral
     | NumberLiteral
     | StringLiteral
     | TupleExpression
-    | ElementTypeName
     | IDENTIFIER
+    | ElementTypeName
 
 TupleExpression ::= '(' (Expression? (',' Expression? )* )? ')'
     | '[' (Expression  (',' Expression)* )? ']'
@@ -295,7 +295,7 @@ AssemblyItem ::= IDENTIFIER
     | HEX_NUMBER
 
 AssemblyLocalBinding ::= let IDENTIFIER ':=' FunctionalAssemblyExpression
-AssemblyAssignment ::= (IDENTIFIER ':=' FunctionalAssemblyExpression) | (':=' IDENTIFIER)
+AssemblyAssignment ::= (IDENTIFIER ':=' FunctionalAssemblyExpression) | ('=:' IDENTIFIER)
 AssemblyLabel ::= IDENTIFIER ':'
 
 //                       _
@@ -308,7 +308,7 @@ AssemblyLabel ::= IDENTIFIER ':'
 
 EventDefinition ::= event IDENTIFIER EventParameterList (anonymous)? ';' { pin = 1 }
 EventParameterList ::= '(' (EventParameter (',' EventParameter)* )? ')'
-EventParameter ::= TypeName (indexed)? IDENTIFIER?
+EventParameter ::= TypeName indexed? IDENTIFIER?
 
 
 //      _        _                            _
