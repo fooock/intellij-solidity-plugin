@@ -213,7 +213,7 @@ Expression ::= PostfixIncDecExpression
 ExpressionList ::= Expression (',' Expression)*
 
 PostfixIncDecExpression ::= Expression (PLUS_PLUS | MINUS_MINUS)
-NewExpression ::= new TypeName { pin = 1 }
+NewExpression ::= new TypeName | IDENTIFIER { pin = 1 }
 ArrayIndexExpression ::= Expression '[' Expression? ']'
 MemberAccessExpression ::= Expression '.' IDENTIFIER
 FunctionCallExpression ::= Expression '(' FunctionCallArguments ')'
@@ -324,14 +324,7 @@ Statement ::= IfStatement
     | ForStatement
     | Block
     | InlineAssemblyStatement
-    | (DoWhileStatement
-    | PlaceholderStatement
-    | ContinueStatement
-    | BreakStatement
-    | ReturnStatement
-    | ThrowStatement
-    | EmitStatement
-    | SimpleStatement) ';'
+    | ComposeStatement ';'
 
 IfStatement ::= if '(' Expression ')' Statement (else Statement)? { pin = 1 }
 WhileStatement ::= while '(' Expression ')' Statement { pin = 1 }
@@ -346,3 +339,12 @@ BreakStatement ::= break
 ReturnStatement ::= return Expression? { pin = 1 }
 ThrowStatement ::= throw
 EmitStatement ::= emit FunctionCallExpression { pin = 1 }
+
+ComposeStatement ::= DoWhileStatement
+    | PlaceholderStatement
+    | ContinueStatement
+    | BreakStatement
+    | ReturnStatement
+    | ThrowStatement
+    | EmitStatement
+    | SimpleStatement
