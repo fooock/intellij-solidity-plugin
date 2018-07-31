@@ -257,7 +257,7 @@ PrimaryExpression ::= BooleanLiteral
     | ElementTypeName
     | IDENTIFIER
 
-TupleExpression ::= '(' (Expression? (',' Expression? )* )? ')'
+TupleExpression ::= '(' (Expression? (',' Expression? )+ )? ')'
     | '[' (Expression  (',' Expression)* )? ']'
 
 FunctionalAssemblyExpression ::= IDENTIFIER '(' AssemblyItem? (',' AssemblyItem)* ')'
@@ -336,7 +336,7 @@ DoWhileStatement ::= do '(' Statement while '(' Expression ')' { pin = 1 }
 PlaceholderStatement ::= '_'
 ContinueStatement ::= continue
 BreakStatement ::= break
-ReturnStatement ::= return Expression? { pin = 1 }
+ReturnStatement ::= return (TupleExpression | ParenthesesExpression | IDENTIFIER)? { pin = 1 }
 ThrowStatement ::= throw
 EmitStatement ::= emit FunctionCallExpression { pin = 1 }
 
