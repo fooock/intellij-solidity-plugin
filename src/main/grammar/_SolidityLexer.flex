@@ -94,11 +94,12 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "struct"              { return STRUCT; }
   "modifier"            { return MODIFIER; }
   "enum"                { return ENUM; }
+  "constructor"         { return CONSTRUCTOR; }
+  "public"              { return PUBLIC; }
+  "private"             { return PRIVATE; }
   "function"            { return FUNCTION; }
   "external"            { return EXTERNAL; }
-  "public"              { return PUBLIC; }
   "internal"            { return INTERNAL; }
-  "private"             { return PRIVATE; }
   "returns"             { return RETURNS; }
   "true"                { return TRUE; }
   "false"               { return FALSE; }
