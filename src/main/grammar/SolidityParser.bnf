@@ -215,7 +215,7 @@ Expression ::= PostfixIncDecExpression
 ExpressionList ::= Expression (',' Expression)*
 
 PostfixIncDecExpression ::= Expression (PLUS_PLUS | MINUS_MINUS)
-NewExpression ::= new TypeName | IDENTIFIER { pin = 1 }
+NewExpression ::= new TypeName { pin = 1 }
 ArrayIndexExpression ::= Expression '[' Expression? ']'
 MemberAccessExpression ::= Expression '.' IDENTIFIER
 FunctionCallExpression ::= Expression '(' FunctionCallArguments ')'
@@ -254,8 +254,8 @@ PrimaryExpression ::= BooleanLiteral
     | NumberLiteral
     | StringLiteral
     | TupleExpression
-    | IDENTIFIER
     | ElementTypeName
+    | IDENTIFIER
 
 TupleExpression ::= '(' (Expression? (',' Expression? )* )? ')'
     | '[' (Expression  (',' Expression)* )? ']'
@@ -286,15 +286,13 @@ VariableDeclaration ::= TypeName StorageLocation? IDENTIFIER
 
 Block ::= '{' Statement* '}'
 InlineAssemblyBlock ::= '{' AssemblyItem* '}'
-AssemblyItem ::= IDENTIFIER
-    | FunctionalAssemblyExpression
+AssemblyItem ::= FunctionalAssemblyExpression
     | InlineAssemblyBlock
     | AssemblyLocalBinding
     | AssemblyAssignment
     | AssemblyLabel
     | NumberLiteral
     | STRING_LITERAL
-    | HEX_NUMBER
 
 AssemblyLocalBinding ::= let IDENTIFIER ':=' FunctionalAssemblyExpression
 AssemblyAssignment ::= (IDENTIFIER ':=' FunctionalAssemblyExpression) | ('=:' IDENTIFIER)
