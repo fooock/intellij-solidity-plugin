@@ -25,7 +25,7 @@ import static com.fooock.solidity.lang.psi.SolidityTypes.*;
 EOL=\R
 WHITE_SPACE=\s+
 
-SPACE=[ \t\n\x0B\f\r]+
+WHITE_SPACE=[ \t\n\x0B\f\r]+
 IDENTIFIER=[a-zA-Z_$][a-zA-Z_$0-9]*
 PRAGMA_VERSION=[0-9].[0-9].[0-9]+
 STRING_LITERAL=(\"([^\"\r\n\\]|\\.)*\")
@@ -239,7 +239,7 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "throw"               { return THROW; }
   "emit"                { return EMIT; }
 
-  {SPACE}               { return SPACE; }
+  {WHITE_SPACE}         { return WHITE_SPACE; }
   {IDENTIFIER}          { return IDENTIFIER; }
   {PRAGMA_VERSION}      { return PRAGMA_VERSION; }
   {STRING_LITERAL}      { return STRING_LITERAL; }
