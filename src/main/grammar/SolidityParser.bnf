@@ -130,7 +130,7 @@ UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';' { pin = 1 }
 StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}' { pin = 1 }
 ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block { pin = 1 }
 EnumDefinition ::= enum IDENTIFIER '{' EnumValue? (',' EnumValue)* '}' { pin = 1 }
-ConstructorDefinition ::= constructor ParameterList (public | private)? Block { pin = 1 }
+ConstructorDefinition ::= constructor ParameterList (public | private)? (payable)? Block { pin = 1 }
 
 FunctionDefinition ::= function IDENTIFIER? ParameterList
     (ModifierFunctionInvocation | FunctionStateMutability | external | public | internal | private)*
