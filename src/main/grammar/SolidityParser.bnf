@@ -191,7 +191,7 @@ Expression ::= PostfixIncDecExpression
     | ArrayIndexExpression
     | MemberAccessExpression
     | FunctionCallExpression
-    | ParenthesesExpression
+    | TupleExpression
     | PrefixIncDecExpression
     | UnaryPlusMinusExpression
     | UnaryOperationExpression
@@ -253,8 +253,8 @@ AssignmentExpression ::=
 PrimaryExpression ::= BooleanLiteral
     | NumberLiteral
     | StringLiteral
-    | TupleExpression
     | ElementTypeName
+    | ParenthesesExpression
     | IDENTIFIER
 
 TupleExpression ::= '(' (Expression? (',' Expression? )+ )? ')'
@@ -328,15 +328,14 @@ Statement ::= IfStatement
 
 IfStatement ::= if '(' Expression ')' Statement (else Statement)? { pin = 1 }
 WhileStatement ::= while '(' Expression ')' Statement { pin = 1 }
-SimpleStatement ::= VariableDefinition | ExpressionStatement
-ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (ExpressionStatement)? ')' Statement { pin = 1 }
-ExpressionStatement ::= Expression
+SimpleStatement ::= VariableDefinition | Expression
+ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (Expression)? ')' Statement { pin = 1 }
 InlineAssemblyStatement ::= assembly STRING_LITERAL? InlineAssemblyBlock { pin = 1 }
 DoWhileStatement ::= do '(' Statement while '(' Expression ')' { pin = 1 }
 PlaceholderStatement ::= '_'
 ContinueStatement ::= continue
 BreakStatement ::= break
-ReturnStatement ::= return (TupleExpression | ParenthesesExpression | IDENTIFIER)? { pin = 1 }
+ReturnStatement ::= return Expression? { pin = 1 }
 ThrowStatement ::= throw
 EmitStatement ::= emit FunctionCallExpression { pin = 1 }
 
