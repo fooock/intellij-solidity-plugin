@@ -97,6 +97,7 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "constructor"         { return CONSTRUCTOR; }
   "public"              { return PUBLIC; }
   "private"             { return PRIVATE; }
+  "payable"             { return PAYABLE; }
   "function"            { return FUNCTION; }
   "external"            { return EXTERNAL; }
   "internal"            { return INTERNAL; }
@@ -223,7 +224,6 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   "pure"                { return PURE; }
   "constant"            { return CONSTANT; }
   "view"                { return VIEW; }
-  "payable"             { return PAYABLE; }
   "let"                 { return LET; }
   "event"               { return EVENT; }
   "anonymous"           { return ANONYMOUS; }

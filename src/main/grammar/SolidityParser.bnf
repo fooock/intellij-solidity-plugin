@@ -151,9 +151,10 @@ ModifierFunctionInvocation ::= IDENTIFIER ( '(' ExpressionList? ')' )?
 TypeName ::= ElementTypeName | UserDefinedTypeName | MappingTypeName | ArrayTypeName | FunctionTypeName
 
 private StringLiteral ::= STRING_LITERAL
+private NumberPrimitive ::= (DECIMAL_NUMBER | HEX_NUMBER)
 
 BooleanLiteral ::= (true | false)
-NumberLiteral ::= (HEX_NUMBER | DECIMAL_NUMBER) NumberUnit?
+NumberLiteral ::= NumberPrimitive NumberUnit?
 ElementTypeName ::= (address | bool | string | var | Integer | UnsignedInt | Bytes)
 UserDefinedTypeName ::= IDENTIFIER ('.' IDENTIFIER)*
 MappingTypeName ::= mapping '(' ElementTypeName '=>' TypeName ')' { pin = 1 }

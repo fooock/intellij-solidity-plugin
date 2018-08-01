@@ -32,7 +32,9 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
         attributesKeyMap.put(SolidityTypes.COMMENT, COMMENT_KEYS);
 
         // Types
-        attributesKeyMap.put(SolidityTypes.NUMBER_LITERAL, NUMBERS);
+        attributesKeyMap.put(SolidityTypes.DECIMAL_NUMBER, NUMBERS);
+        attributesKeyMap.put(SolidityTypes.HEX_NUMBER, NUMBERS);
+        attributesKeyMap.put(SolidityTypes.PRAGMA_VERSION, NUMBERS);
         attributesKeyMap.put(SolidityTypes.STRING_LITERAL, STRINGS);
 
         // Operators
