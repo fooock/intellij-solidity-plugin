@@ -25,4 +25,16 @@ final class Attributes {
     static final TextAttributesKey KEYWORD = createTextAttributesKey("SOLIDITY_KEYWORD",
             DefaultLanguageHighlighterColors.KEYWORD);
 
+    static final TextAttributesKey SEMI_COLON = createTextAttributesKey("SOLIDITY_SEMICOLON",
+            DefaultLanguageHighlighterColors.SEMICOLON);
+
+    static final TextAttributesKey BRACE = createTextAttributesKey("SOLIDITY_BRACE",
+            DefaultLanguageHighlighterColors.BRACES);
+
+    static final TextAttributesKey BRACKET = createTextAttributesKey("SOLIDITY_BRACKET",
+            DefaultLanguageHighlighterColors.BRACKETS);
+
+    static final TextAttributesKey PAREN = createTextAttributesKey("SOLIDITY_PAREN",
+            DefaultLanguageHighlighterColors.PARENTHESES);
+
 }

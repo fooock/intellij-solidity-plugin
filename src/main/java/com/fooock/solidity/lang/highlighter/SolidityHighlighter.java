@@ -23,12 +23,25 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] NUMBERS = new TextAttributesKey[]{NUMBER};
     private static final TextAttributesKey[] STRINGS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] KEYWORDS = new TextAttributesKey[]{KEYWORD};
+    private static final TextAttributesKey[] SEMICOLON = new TextAttributesKey[]{SEMI_COLON};
+    private static final TextAttributesKey[] BRACKETS = new TextAttributesKey[]{BRACKET};
+    private static final TextAttributesKey[] BRACES = new TextAttributesKey[]{BRACE};
+    private static final TextAttributesKey[] PARENTHESES = new TextAttributesKey[]{PAREN};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     private final Map<IElementType, TextAttributesKey[]> attributesKeyMap;
 
     SolidityHighlighter() {
         attributesKeyMap = new HashMap<>();
+        // Symbols
+        attributesKeyMap.put(SolidityTypes.SEMICOLON, SEMICOLON);
+        attributesKeyMap.put(SolidityTypes.LBRACE, BRACES);
+        attributesKeyMap.put(SolidityTypes.RBRACE, BRACES);
+        attributesKeyMap.put(SolidityTypes.LBRACK, BRACKETS);
+        attributesKeyMap.put(SolidityTypes.RBRACK, BRACKETS);
+        attributesKeyMap.put(SolidityTypes.LPAREN, PARENTHESES);
+        attributesKeyMap.put(SolidityTypes.RPAREN, PARENTHESES);
+
         // Comments
         attributesKeyMap.put(SolidityTypes.COMMENT, COMMENT_KEYS);
 
