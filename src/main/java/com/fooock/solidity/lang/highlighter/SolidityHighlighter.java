@@ -11,7 +11,7 @@ import org.jetbrains.annotations.NotNull;
 import java.util.HashMap;
 import java.util.Map;
 
-import static com.fooock.solidity.lang.highlighter.Attributes.*;
+import static com.fooock.solidity.lang.highlighter.SolidityColor.*;
 
 /**
  *

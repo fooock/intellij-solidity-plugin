@@ -21,7 +21,8 @@
                                implementationClass="com.fooock.solidity.lang.parser.SolidityParserDefinition"/>
         <lang.syntaxHighlighterFactory language="Solidity"
                                        implementationClass="com.fooock.solidity.lang.highlighter.SolidityHighlighterFactory"/>
-
+        <completion.contributor language="Solidity"
+                                implementationClass="com.fooock.solidity.lang.completion.SolidityCompletion"/>
     </extensions>
 
     <actions>

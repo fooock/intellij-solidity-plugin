@@ -8,7 +8,7 @@ import static com.intellij.openapi.editor.colors.TextAttributesKey.createTextAtt
 /**
  *
  */
-final class Attributes {
+final class SolidityColor {
 
     static final TextAttributesKey COMMENT = createTextAttributesKey("SOLIDITY_COMMENT",
             DefaultLanguageHighlighterColors.LINE_COMMENT);
