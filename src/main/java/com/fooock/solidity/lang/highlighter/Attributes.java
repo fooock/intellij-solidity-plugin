@@ -22,4 +22,7 @@ final class Attributes {
     static final TextAttributesKey STRING = createTextAttributesKey("SOLIDITY_STRING",
             DefaultLanguageHighlighterColors.STRING);
 
+    static final TextAttributesKey KEYWORD = createTextAttributesKey("SOLIDITY_KEYWORD",
+            DefaultLanguageHighlighterColors.KEYWORD);
+
 }

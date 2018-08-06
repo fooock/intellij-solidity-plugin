@@ -22,6 +22,7 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] OPERATORS = new TextAttributesKey[]{OPERATOR_SIGN};
     private static final TextAttributesKey[] NUMBERS = new TextAttributesKey[]{NUMBER};
     private static final TextAttributesKey[] STRINGS = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] KEYWORDS = new TextAttributesKey[]{STRING};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     private final Map<IElementType, TextAttributesKey[]> attributesKeyMap;
@@ -31,7 +32,7 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
         // Comments
         attributesKeyMap.put(SolidityTypes.COMMENT, COMMENT_KEYS);
 
-        // Types
+        // Types content
         attributesKeyMap.put(SolidityTypes.DECIMAL_NUMBER, NUMBERS);
         attributesKeyMap.put(SolidityTypes.HEX_NUMBER, NUMBERS);
         attributesKeyMap.put(SolidityTypes.PRAGMA_VERSION, NUMBERS);
@@ -70,6 +71,78 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
         attributesKeyMap.put(SolidityTypes.GREATER, OPERATORS);
         attributesKeyMap.put(SolidityTypes.TILDE, OPERATORS);
         attributesKeyMap.put(SolidityTypes.EXPONENT, OPERATORS);
+
+        // Contract definition keywords
+        attributesKeyMap.put(SolidityTypes.CONTRACT, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.IS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.FUNCTION, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.INTERFACE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.LIBRARY, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.CONSTRUCTOR, KEYWORDS);
+
+        // Contract state visibility keywords
+        attributesKeyMap.put(SolidityTypes.PUBLIC, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.PRIVATE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.INTERNAL, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.EXTERNAL, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.PURE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.CONSTANT, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.PAYABLE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.VIEW, KEYWORDS);
+
+        // Variable state keywords
+        attributesKeyMap.put(SolidityTypes.MEMORY, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.STORAGE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.DELETE_OPERATOR, KEYWORDS);
+
+        // Number unit keywords
+        attributesKeyMap.put(SolidityTypes.WEI, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.FINNEY, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.SZABO, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.ETHER, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.SECONDS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.MINUTES, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.HOURS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.DAYS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.WEEKS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.YEARS, KEYWORDS);
+
+        // Mixed keywords
+        attributesKeyMap.put(SolidityTypes.MODIFIER, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.RETURN, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.RETURNS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.EMIT, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.INDEXED, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.NEW, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.PRAGMA, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.IMPORT, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.AS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.FROM, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.USING, KEYWORDS);
+
+        // Statements keywords
+        attributesKeyMap.put(SolidityTypes.IF, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.ELSE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.FOR, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.WHILE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.ASSEMBLY, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.DO, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.CONTINUE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.BREAK, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.THROW, KEYWORDS);
+
+        // Variable types keywords
+        attributesKeyMap.put(SolidityTypes.TRUE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.FALSE, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.ADDRESS, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.BOOL, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.STRING, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.VAR, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.MAPPING, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.STRUCT, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.ENUM, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.LET, KEYWORDS);
+        attributesKeyMap.put(SolidityTypes.EVENT, KEYWORDS);
     }
 
     @NotNull
