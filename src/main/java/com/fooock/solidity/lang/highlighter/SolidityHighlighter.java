@@ -22,7 +22,7 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
     private static final TextAttributesKey[] OPERATORS = new TextAttributesKey[]{OPERATOR_SIGN};
     private static final TextAttributesKey[] NUMBERS = new TextAttributesKey[]{NUMBER};
     private static final TextAttributesKey[] STRINGS = new TextAttributesKey[]{STRING};
-    private static final TextAttributesKey[] KEYWORDS = new TextAttributesKey[]{STRING};
+    private static final TextAttributesKey[] KEYWORDS = new TextAttributesKey[]{KEYWORD};
     private static final TextAttributesKey[] EMPTY_KEYS = new TextAttributesKey[0];
 
     private final Map<IElementType, TextAttributesKey[]> attributesKeyMap;
