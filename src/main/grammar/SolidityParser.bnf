@@ -100,10 +100,14 @@ PragmaVersionNumber ::= PRAGMA_VERSION
 //             |_|
 
 ImportDirective ::= import (ImportSimple | ImportFrom | ImportComplex) ';' { pin = 1 }
-ImportSimple ::= STRING_LITERAL (as IDENTIFIER)?
-ImportFrom ::= ('*' | IDENTIFIER) (as IDENTIFIER)? from STRING_LITERAL
-ImportComplex ::= '{' IDENTIFIER (as IDENTIFIER)? (',' IDENTIFIER (as IDENTIFIER)? )* '}' from STRING_LITERAL
+ImportSimple ::= STRING_LITERAL (as ImportAlias)?
+ImportFrom ::= ('*' | IDENTIFIER) (as ImportAlias)? from STRING_LITERAL
+ImportComplex ::= '{' IDENTIFIER (as ImportAlias)? (',' IDENTIFIER (as ImportAlias)? )* '}' from STRING_LITERAL
 
+ImportAlias ::= IDENTIFIER {
+    implements = "com.fooock.solidity.lang.psi.SolidityNamedElement"
+    mixin = "com.fooock.solidity.lang.psi.impl.SolidityNamedElementImpl"
+}
 
 //                  _                  _
 //                 | |                | |
