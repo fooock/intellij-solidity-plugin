@@ -5,6 +5,7 @@ import com.intellij.lang.ASTNode;
 import com.intellij.lang.folding.FoldingBuilder;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.editor.Document;
+import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.tree.IElementType;
 import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
@@ -33,7 +34,13 @@ public class SolidityFolding implements FoldingBuilder {
         // Find list of imports
         if (elementType == SolidityTypes.IMPORT_LIST) {
             ASTNode[] commentChildren = node.getChildren(TokenSet.create(SolidityTypes.IMPORT_DIRECTIVE));
-            if (commentChildren.length > MIN) descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+            if (commentChildren.length > MIN) {
+                // We need to get the end offset of the first element of the import list.
+                // in this case, first get from node: directive -> psiElement -> textRange + 1 (white space)
+                int start = node.getFirstChildNode().getFirstChildNode().getTextRange().getEndOffset() + 1;
+                TextRange range = TextRange.create(start, node.getTextRange().getEndOffset());
+                descriptors.add(new FoldingDescriptor(node, range));
+            }
         }
         // Find all comment regions
         if (elementType == SolidityTypes.COMMENT) {
@@ -58,7 +65,7 @@ public class SolidityFolding implements FoldingBuilder {
         IElementType elementType = node.getElementType();
         // Placeholder for import list
         if (elementType == SolidityTypes.IMPORT_LIST)
-            return "import ...";
+            return "...";
         // Placeholder for block comments
         if (elementType == SolidityTypes.COMMENT) {
             // return the same string used by IntelliJ to represent doc comments
