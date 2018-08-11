@@ -24,6 +24,8 @@
         <lang.commenter language="Solidity" implementationClass="com.fooock.solidity.lang.support.SolidityCommenter"/>
         <lang.braceMatcher language="Solidity"
                            implementationClass="com.fooock.solidity.lang.support.SolidityBraceMatcher"/>
+        <lang.foldingBuilder language="Solidity"
+                             implementationClass="com.fooock.solidity.lang.support.SolidityFolding"/>
 
         <completion.contributor language="Solidity"
                                 implementationClass="com.fooock.solidity.lang.completion.SolidityCompletion"/>

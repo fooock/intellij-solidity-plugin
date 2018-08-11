@@ -22,7 +22,7 @@ public class SolidityFileType extends LanguageFileType {
     @NotNull
     @Override
     public String getName() {
-        return "Solidity file";
+        return "Solidity";
     }
 
     @NotNull
