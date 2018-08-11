@@ -118,7 +118,8 @@ ImportAlias ::= IDENTIFIER {
 //  \___\___/|_| |_|\__|_|  \__,_|\___|\__|
 //
 
-ContractStructure ::= ContractDirective (is InheritanceSpecifier (',' InheritanceSpecifier)* )? '{' ContractContent* '}'
+ContractStructure ::= ContractDirective (is InheritanceSpecifier (',' InheritanceSpecifier)* )? ContractBlock
+ContractBlock ::= '{' ContractContent* '}'
 ContractDirective ::= (contract | library | interface) IDENTIFIER
 InheritanceSpecifier ::= UserDefinedTypeName ('(' Expression (',' Expression)* ')' )?
 ContractContent ::= ContractStateVariableDeclaration

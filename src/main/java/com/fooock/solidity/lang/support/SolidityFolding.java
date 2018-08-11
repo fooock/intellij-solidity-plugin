@@ -41,6 +41,10 @@ public class SolidityFolding implements FoldingBuilder {
             if (!node.getText().startsWith(SolidityCommenter.LINE_COMMENT))
                 descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
         }
+        // Find contract body and contract blocks
+        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.BLOCK)
+            descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+
         // Find all child elements
         for (ASTNode child : node.getChildren(null)) {
             getDescriptors(child, descriptors);
@@ -52,13 +56,15 @@ public class SolidityFolding implements FoldingBuilder {
     public String getPlaceholderText(@NotNull ASTNode node) {
         IElementType elementType = node.getElementType();
         // Placeholder for import list
-        if (elementType == SolidityTypes.IMPORT_LIST) return "import ...";
-
+        if (elementType == SolidityTypes.IMPORT_LIST)
+            return "import ...";
         // Placeholder for block comments
         if (elementType == SolidityTypes.COMMENT) {
             // return the same string used by IntelliJ to represent doc comments
             return "/**...*/";
         }
+        // Placeholder for contract structure and contract blocks
+        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.BLOCK) return "{...}";
         return null;
     }
 
