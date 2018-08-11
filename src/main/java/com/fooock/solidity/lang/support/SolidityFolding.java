@@ -6,6 +6,7 @@ import com.intellij.lang.folding.FoldingBuilder;
 import com.intellij.lang.folding.FoldingDescriptor;
 import com.intellij.openapi.editor.Document;
 import com.intellij.psi.tree.IElementType;
+import com.intellij.psi.tree.TokenSet;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
@@ -28,6 +29,11 @@ public class SolidityFolding implements FoldingBuilder {
 
     private void getDescriptors(ASTNode node, List<FoldingDescriptor> descriptors) {
         IElementType elementType = node.getElementType();
+        // Find list of imports
+        if (elementType == SolidityTypes.IMPORT_LIST) {
+            int directives = node.getChildren(TokenSet.create(SolidityTypes.IMPORT_DIRECTIVE)).length;
+            if (directives > 1) descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+        }
         // Find all comment regions
         if (elementType == SolidityTypes.COMMENT) {
             descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
@@ -42,9 +48,14 @@ public class SolidityFolding implements FoldingBuilder {
     @Override
     public String getPlaceholderText(@NotNull ASTNode node) {
         IElementType elementType = node.getElementType();
+        // Placeholder for import list
+        if (elementType == SolidityTypes.IMPORT_LIST) return "import ...";
+
+        // Placeholder for block comments
         if (elementType == SolidityTypes.COMMENT)
             // return the same string used by IntelliJ to represent comments
             return "/**...*/";
+
         return null;
     }
 

@@ -72,7 +72,7 @@
     extends(".*TypeName")=TypeName
 }
 
-File ::= (PragmaDirective | ImportDirective | ContractStructure)*
+File ::= (PragmaDirective | ImportList | ContractStructure)*
 
 //
 //  _ __  _ __ __ _  __ _ _ __ ___   __ _
@@ -99,6 +99,7 @@ PragmaVersionNumber ::= PRAGMA_VERSION
 //             | |
 //             |_|
 
+ImportList ::= ImportDirective+
 ImportDirective ::= import (ImportSimple | ImportFrom | ImportComplex) ';' { pin = 1 }
 ImportSimple ::= STRING_LITERAL (as ImportAlias)?
 ImportFrom ::= ('*' | IDENTIFIER) (as ImportAlias)? from STRING_LITERAL
