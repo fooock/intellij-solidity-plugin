@@ -134,15 +134,15 @@ ContractContent ::= ContractStateVariableDeclaration
 ContractStateVariableDeclaration ::= TypeName ContractStateVariableVisibility* IDENTIFIER (ASSIGN Expression)? ';'
 UsingForDeclaration ::= using IDENTIFIER for ('*' | TypeName) ';' { pin = 1 }
 StructDefinition ::= struct IDENTIFIER '{' (VariableDeclaration ';' (VariableDeclaration ';')* ) '}' { pin = 1 }
-ModifierDefinition ::= modifier IDENTIFIER ParameterList? Block { pin = 1 }
+ModifierDefinition ::= modifier IDENTIFIER ParameterList? MainBlock { pin = 1 }
 EnumDefinition ::= enum IDENTIFIER '{' EnumValue? (',' EnumValue)* '}' { pin = 1 }
 
 ConstructorDefinition ::= constructor ParameterList
-    (ModifierFunctionInvocation | public | private | payable)* Block { pin = 1 }
+    (ModifierFunctionInvocation | public | private | payable)* MainBlock { pin = 1 }
 
 FunctionDefinition ::= function IDENTIFIER? ParameterList
     (ModifierFunctionInvocation | FunctionStateMutability | external | public | internal | private)*
-    (returns ParameterList)? (';' | Block) { pin = 1 }
+    (returns ParameterList)? (';' | MainBlock) { pin = 1 }
 
 ModifierFunctionInvocation ::= IDENTIFIER ( '(' ExpressionList? ')' )?
 
@@ -293,6 +293,7 @@ FunctionStateMutability ::= (pure | constant | view | payable)
 ContractStateVariableVisibility ::= (public | internal | private | constant)
 VariableDeclaration ::= TypeName StorageLocation? IDENTIFIER
 
+MainBlock ::= Block
 Block ::= '{' Statement* '}'
 InlineAssemblyBlock ::= '{' AssemblyItem* '}'
 AssemblyItem ::= FunctionalAssemblyExpression

@@ -25,11 +25,11 @@ public class SolidityFolding implements FoldingBuilder {
     @Override
     public FoldingDescriptor[] buildFoldRegions(@NotNull ASTNode node, @NotNull Document document) {
         List<FoldingDescriptor> descriptors = new ArrayList<>();
-        getDescriptors(node, descriptors);
+        getFoldDescriptors(node, descriptors);
         return descriptors.toArray(TYPE_ARRAY_FOLDING_DESCRIPTOR);
     }
 
-    private void getDescriptors(ASTNode node, List<FoldingDescriptor> descriptors) {
+    private void getFoldDescriptors(ASTNode node, List<FoldingDescriptor> descriptors) {
         IElementType elementType = node.getElementType();
         // Find list of imports
         if (elementType == SolidityTypes.IMPORT_LIST) {
@@ -50,12 +50,12 @@ public class SolidityFolding implements FoldingBuilder {
                 descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
         }
         // Find contract body and contract blocks
-        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.BLOCK)
+        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.MAIN_BLOCK)
             descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
 
         // Find all child elements
         for (ASTNode child : node.getChildren(null)) {
-            getDescriptors(child, descriptors);
+            getFoldDescriptors(child, descriptors);
         }
     }
 
@@ -64,15 +64,11 @@ public class SolidityFolding implements FoldingBuilder {
     public String getPlaceholderText(@NotNull ASTNode node) {
         IElementType elementType = node.getElementType();
         // Placeholder for import list
-        if (elementType == SolidityTypes.IMPORT_LIST)
-            return "...";
+        if (elementType == SolidityTypes.IMPORT_LIST) return "...";
         // Placeholder for block comments
-        if (elementType == SolidityTypes.COMMENT) {
-            // return the same string used by IntelliJ to represent doc comments
-            return "/**...*/";
-        }
+        if (elementType == SolidityTypes.COMMENT) return "/**...*/";
         // Placeholder for contract structure and contract blocks
-        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.BLOCK) return "{...}";
+        if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.MAIN_BLOCK) return "{...}";
         return null;
     }
 
