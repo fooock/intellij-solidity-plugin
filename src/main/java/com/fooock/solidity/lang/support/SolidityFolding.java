@@ -17,6 +17,7 @@ import java.util.List;
  *
  */
 public class SolidityFolding implements FoldingBuilder {
+    private static final int MIN = 1;
     private static final FoldingDescriptor[] TYPE_ARRAY_FOLDING_DESCRIPTOR = new FoldingDescriptor[0];
 
     @NotNull
@@ -31,8 +32,8 @@ public class SolidityFolding implements FoldingBuilder {
         IElementType elementType = node.getElementType();
         // Find list of imports
         if (elementType == SolidityTypes.IMPORT_LIST) {
-            int directives = node.getChildren(TokenSet.create(SolidityTypes.IMPORT_DIRECTIVE)).length;
-            if (directives > 1) descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+            ASTNode[] commentChildren = node.getChildren(TokenSet.create(SolidityTypes.IMPORT_DIRECTIVE));
+            if (commentChildren.length > MIN) descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
         }
         // Find all comment regions
         if (elementType == SolidityTypes.COMMENT) {
