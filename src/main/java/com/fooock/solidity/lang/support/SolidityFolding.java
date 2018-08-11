@@ -36,7 +36,10 @@ public class SolidityFolding implements FoldingBuilder {
         }
         // Find all comment regions
         if (elementType == SolidityTypes.COMMENT) {
-            descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+            // At this time we don't allow folding line comments
+            // see issue #2 for details.
+            if (!node.getText().startsWith(SolidityCommenter.LINE_COMMENT))
+                descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
         }
         // Find all child elements
         for (ASTNode child : node.getChildren(null)) {
@@ -52,10 +55,10 @@ public class SolidityFolding implements FoldingBuilder {
         if (elementType == SolidityTypes.IMPORT_LIST) return "import ...";
 
         // Placeholder for block comments
-        if (elementType == SolidityTypes.COMMENT)
-            // return the same string used by IntelliJ to represent comments
+        if (elementType == SolidityTypes.COMMENT) {
+            // return the same string used by IntelliJ to represent doc comments
             return "/**...*/";
-
+        }
         return null;
     }
 

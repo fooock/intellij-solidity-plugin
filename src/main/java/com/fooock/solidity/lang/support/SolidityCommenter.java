@@ -7,11 +7,12 @@ import org.jetbrains.annotations.Nullable;
  * Comment support for Solidity
  */
 public class SolidityCommenter implements Commenter {
+    static final String LINE_COMMENT = "//";
 
     @Nullable
     @Override
     public String getLineCommentPrefix() {
-        return "//";
+        return LINE_COMMENT;
     }
 
     @Nullable
