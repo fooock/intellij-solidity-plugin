@@ -28,7 +28,7 @@
                              implementationClass="com.fooock.solidity.lang.support.SolidityFolding"/>
 
         <completion.contributor language="Solidity"
-                                implementationClass="com.fooock.solidity.lang.completion.SolidityCompletion"/>
+                                implementationClass="com.fooock.solidity.lang.completion.SolidityCompletionContributor"/>
 
         <annotator language="Solidity"
                    implementationClass="com.fooock.solidity.lang.highlighter.SolidityHighlightingAnnotator"/>
