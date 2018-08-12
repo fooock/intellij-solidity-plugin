@@ -37,4 +37,9 @@ final class SolidityColor {
     static final TextAttributesKey PAREN = createTextAttributesKey("SOLIDITY_PAREN",
             DefaultLanguageHighlighterColors.PARENTHESES);
 
+    static final TextAttributesKey FUNCTION_DEC = createTextAttributesKey("SOLIDITY_FUNCTION_DEC",
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+
+    static final TextAttributesKey MODIFIER_DEC = createTextAttributesKey("SOLIDITY_MODIFIER_DEC",
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
 }

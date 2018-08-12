@@ -29,6 +29,10 @@
 
         <completion.contributor language="Solidity"
                                 implementationClass="com.fooock.solidity.lang.completion.SolidityCompletion"/>
+
+        <annotator language="Solidity"
+                   implementationClass="com.fooock.solidity.lang.highlighter.SolidityHighlightingAnnotator"/>
+
     </extensions>
 
     <actions>
