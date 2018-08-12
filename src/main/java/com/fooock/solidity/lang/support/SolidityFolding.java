@@ -53,10 +53,18 @@ public class SolidityFolding implements FoldingBuilder {
         if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.MAIN_BLOCK)
             descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
 
+        // Find event definitions of > 1 line
+        if (elementType == SolidityTypes.EVENT_PARAMETER_LIST && isMultiline(node))
+            descriptors.add(new FoldingDescriptor(node, node.getTextRange()));
+
         // Find all child elements
         for (ASTNode child : node.getChildren(null)) {
             getFoldDescriptors(child, descriptors);
         }
+    }
+
+    private boolean isMultiline(ASTNode node) {
+        return node.getTextLength() > 1;
     }
 
     @Nullable
@@ -69,6 +77,8 @@ public class SolidityFolding implements FoldingBuilder {
         if (elementType == SolidityTypes.COMMENT) return "/**...*/";
         // Placeholder for contract structure and contract blocks
         if (elementType == SolidityTypes.CONTRACT_BLOCK || elementType == SolidityTypes.MAIN_BLOCK) return "{...}";
+        // Multiline event definition
+        if (elementType == SolidityTypes.EVENT_PARAMETER_LIST) return "(...)";
         return null;
     }
 
