@@ -45,4 +45,10 @@ final class SolidityColor {
 
     static final TextAttributesKey MODIFIER_INVOCATION = createTextAttributesKey("SOLIDITY_MODIFIER_INVOCATION",
             DefaultLanguageHighlighterColors.METADATA);
+
+    static final TextAttributesKey CONTRACT_VARS = createTextAttributesKey("SOLIDITY_CONTRACT_VARS",
+            DefaultLanguageHighlighterColors.INSTANCE_FIELD);
+
+    static final TextAttributesKey USING_DEC = createTextAttributesKey("SOLIDITY_USING_DEC",
+            DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
 }

@@ -1,8 +1,6 @@
 package com.fooock.solidity.lang.highlighter;
 
-import com.fooock.solidity.lang.psi.SolidityFunctionDefinition;
-import com.fooock.solidity.lang.psi.SolidityModifierDefinition;
-import com.fooock.solidity.lang.psi.SolidityModifierFunctionInvocation;
+import com.fooock.solidity.lang.psi.*;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.application.ApplicationManager;
@@ -33,6 +31,14 @@ public class SolidityHighlightingAnnotator implements Annotator {
         } else if (element instanceof SolidityModifierFunctionInvocation) {
             SolidityModifierFunctionInvocation modifierInvocation = (SolidityModifierFunctionInvocation) element;
             highlightElement(modifierInvocation.getIdentifier(), holder, SolidityColor.MODIFIER_INVOCATION);
+
+        } else if (element instanceof SolidityContractStateVariableDeclaration) {
+            SolidityContractStateVariableDeclaration varDec = (SolidityContractStateVariableDeclaration) element;
+            highlightElement(varDec.getIdentifier(), holder, SolidityColor.CONTRACT_VARS);
+
+        } else if (element instanceof SolidityUsingForDeclaration) {
+            SolidityUsingForDeclaration usingDeclaration = (SolidityUsingForDeclaration) element;
+            highlightElement(usingDeclaration.getIdentifier(), holder, SolidityColor.USING_DEC);
         }
     }
 
