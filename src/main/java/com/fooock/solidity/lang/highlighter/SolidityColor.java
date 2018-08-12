@@ -42,4 +42,7 @@ final class SolidityColor {
 
     static final TextAttributesKey MODIFIER_DEC = createTextAttributesKey("SOLIDITY_MODIFIER_DEC",
             DefaultLanguageHighlighterColors.FUNCTION_DECLARATION);
+
+    static final TextAttributesKey MODIFIER_INVOCATION = createTextAttributesKey("SOLIDITY_MODIFIER_INVOCATION",
+            DefaultLanguageHighlighterColors.METADATA);
 }

@@ -1,7 +1,8 @@
 package com.fooock.solidity.lang.highlighter;
 
-import com.fooock.solidity.lang.psi.SolidityFunctionName;
-import com.fooock.solidity.lang.psi.SolidityModifierName;
+import com.fooock.solidity.lang.psi.SolidityFunctionDefinition;
+import com.fooock.solidity.lang.psi.SolidityModifierDefinition;
+import com.fooock.solidity.lang.psi.SolidityModifierFunctionInvocation;
 import com.intellij.lang.annotation.AnnotationHolder;
 import com.intellij.lang.annotation.Annotator;
 import com.intellij.openapi.application.ApplicationManager;
@@ -17,13 +18,21 @@ public class SolidityHighlightingAnnotator implements Annotator {
 
     @Override
     public void annotate(@NotNull PsiElement element, @NotNull AnnotationHolder holder) {
-        if (element instanceof SolidityFunctionName) {
-            SolidityFunctionName functionName = (SolidityFunctionName) element;
-            highlightElement(functionName.getIdentifier(), holder, SolidityColor.FUNCTION_DEC);
+        if (!(element.isValid())) return;
 
-        } else if (element instanceof SolidityModifierName) {
-            SolidityModifierName modifierName = (SolidityModifierName) element;
-            highlightElement(modifierName.getIdentifier(), holder, SolidityColor.MODIFIER_DEC);
+        if (element instanceof SolidityFunctionDefinition) {
+            SolidityFunctionDefinition functionName = (SolidityFunctionDefinition) element;
+            if (functionName.getIdentifier() != null)
+                highlightElement(functionName.getIdentifier(), holder, SolidityColor.FUNCTION_DEC);
+
+        } else if (element instanceof SolidityModifierDefinition) {
+            SolidityModifierDefinition modifierName = (SolidityModifierDefinition) element;
+            if (modifierName.getIdentifier() != null)
+                highlightElement(modifierName.getIdentifier(), holder, SolidityColor.MODIFIER_DEC);
+
+        } else if (element instanceof SolidityModifierFunctionInvocation) {
+            SolidityModifierFunctionInvocation modifierInvocation = (SolidityModifierFunctionInvocation) element;
+            highlightElement(modifierInvocation.getIdentifier(), holder, SolidityColor.MODIFIER_INVOCATION);
         }
     }
 
