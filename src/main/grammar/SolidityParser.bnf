@@ -12,6 +12,8 @@
     elementTypeClass="com.fooock.solidity.lang.psi.SolidityElementType"
     tokenTypeClass="com.fooock.solidity.lang.psi.SolidityTokenType"
 
+    psiImplUtilClass="com.fooock.solidity.lang.psi.impl.SolidityPsiImplUtil"
+
     tokens = [
         LBRACE             = '{'
         RBRACE             = '}'
@@ -108,6 +110,7 @@ ImportComplex ::= '{' IDENTIFIER (as ImportAlias)? (',' IDENTIFIER (as ImportAli
 ImportAlias ::= IDENTIFIER {
     implements = "com.fooock.solidity.lang.psi.SolidityNamedElement"
     mixin = "com.fooock.solidity.lang.psi.impl.SolidityNamedElementImpl"
+    methods = [getName]
 }
 
 //                  _                  _
