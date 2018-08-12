@@ -7,6 +7,7 @@ Solidity plugin to support Solidity language. Currently in **early alpha**
 At this time this plugin support this features:
 
 * Syntax highlighting
+* Code folding
 
 ## Documentation
 
