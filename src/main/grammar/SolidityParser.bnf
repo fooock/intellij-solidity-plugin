@@ -63,6 +63,7 @@
         STRING_LITERAL     = 'regexp:("([^"\r\n\\]|\\.)*")'
         COMMENT            = 'regexp:/(\*([\s\S]*?)\*/)|(//(.*))'
         DELETE_OPERATOR    = 'delete'
+        SUPER_OPERATOR     = 'super'
         TILDE              = '~'
         EXPONENT           = '**'
         HEX_NUMBER         = 'regexp:(0x[0-9a-fA-F]+)|(hex"([0-9a-fA-F]+)")'
@@ -352,6 +353,7 @@ BreakStatement ::= break
 ReturnStatement ::= return Expression? { pin = 1 }
 ThrowStatement ::= throw
 EmitStatement ::= emit FunctionCallExpression { pin = 1 }
+SuperStatement ::= SUPER_OPERATOR '.' Expression
 
 ComposeStatement ::= DoWhileStatement
     | PlaceholderStatement
@@ -361,3 +363,4 @@ ComposeStatement ::= DoWhileStatement
     | ThrowStatement
     | EmitStatement
     | SimpleStatement
+    | SuperStatement

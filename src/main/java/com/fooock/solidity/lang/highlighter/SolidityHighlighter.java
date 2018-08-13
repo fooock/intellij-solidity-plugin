@@ -81,6 +81,7 @@ public class SolidityHighlighter extends SyntaxHighlighterBase {
         attributesKeyMap.put(SolidityTypes.INTERFACE, KEYWORD);
         attributesKeyMap.put(SolidityTypes.LIBRARY, KEYWORD);
         attributesKeyMap.put(SolidityTypes.CONSTRUCTOR, KEYWORD);
+        attributesKeyMap.put(SolidityTypes.SUPER_OPERATOR, KEYWORD);
 
         // Contract state visibility keywords
         attributesKeyMap.put(SolidityTypes.PUBLIC, KEYWORD);
