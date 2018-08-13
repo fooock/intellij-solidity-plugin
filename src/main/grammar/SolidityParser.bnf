@@ -105,9 +105,9 @@ PragmaVersionNumber ::= PRAGMA_VERSION
 
 ImportList ::= ImportDirective+
 ImportDirective ::= import (ImportSimple | ImportFrom | ImportComplex) ';' { pin = 1 }
-ImportSimple ::= STRING_LITERAL (as ImportAlias)?
-ImportFrom ::= ('*' | IDENTIFIER) (as ImportAlias)? from STRING_LITERAL
-ImportComplex ::= '{' IDENTIFIER (as ImportAlias)? (',' IDENTIFIER (as ImportAlias)? )* '}' from STRING_LITERAL
+ImportSimple ::= StringLiteral (as ImportAlias)?
+ImportFrom ::= ('*' | IDENTIFIER) (as ImportAlias)? from StringLiteral
+ImportComplex ::= '{' IDENTIFIER (as ImportAlias)? (',' IDENTIFIER (as ImportAlias)? )* '}' from StringLiteral
 
 ImportAlias ::= IDENTIFIER {
     implements = "com.fooock.solidity.lang.psi.SolidityNamedElement"
@@ -307,7 +307,7 @@ AssemblyItem ::= FunctionalAssemblyExpression
     | AssemblyAssignment
     | AssemblyLabel
     | NumberLiteral
-    | STRING_LITERAL
+    | StringLiteral
 
 AssemblyLocalBinding ::= let IDENTIFIER ':=' FunctionalAssemblyExpression
 AssemblyAssignment ::= (IDENTIFIER ':=' FunctionalAssemblyExpression) | ('=:' IDENTIFIER)
@@ -341,12 +341,12 @@ Statement ::= IfStatement
     | InlineAssemblyStatement
     | ComposeStatement ';'
 
-IfStatement ::= if '(' Expression ')' Statement (else Statement)? { pin = 1 }
-WhileStatement ::= while '(' Expression ')' Statement { pin = 1 }
+IfStatement ::= if ParenthesesExpression Statement (else Statement)? { pin = 1 }
+WhileStatement ::= while ParenthesesExpression Statement { pin = 1 }
 SimpleStatement ::= VariableDefinition | Expression
 ForStatement ::= for '(' (SimpleStatement)? ';' (Expression)? ';' (Expression)? ')' Statement { pin = 1 }
-InlineAssemblyStatement ::= assembly STRING_LITERAL? InlineAssemblyBlock { pin = 1 }
-DoWhileStatement ::= do '(' Statement while '(' Expression ')' { pin = 1 }
+InlineAssemblyStatement ::= assembly StringLiteral? InlineAssemblyBlock { pin = 1 }
+DoWhileStatement ::= do '(' Statement while ParenthesesExpression { pin = 1 }
 PlaceholderStatement ::= '_'
 ContinueStatement ::= continue
 BreakStatement ::= break
