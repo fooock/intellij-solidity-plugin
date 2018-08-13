@@ -78,6 +78,7 @@ DECIMAL_NUMBER=[0-9]+(\.[0-9]*)?([eE][0-9]+)?
   ">>"                  { return SHIFT_RIGHT; }
   ">="                  { return GREATER_OR_EQUAL; }
   ">"                   { return GREATER; }
+  "."                   { return DOT; }
   "delete"              { return DELETE_OPERATOR; }
   "~"                   { return TILDE; }
   "**"                  { return EXPONENT; }

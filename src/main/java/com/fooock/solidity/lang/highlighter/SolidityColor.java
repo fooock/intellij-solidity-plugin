@@ -1,5 +1,6 @@
 package com.fooock.solidity.lang.highlighter;
 
+import com.intellij.ide.highlighter.JavaHighlightingColors;
 import com.intellij.openapi.editor.DefaultLanguageHighlighterColors;
 import com.intellij.openapi.editor.colors.TextAttributesKey;
 
@@ -23,7 +24,7 @@ final class SolidityColor {
             DefaultLanguageHighlighterColors.STRING);
 
     static final TextAttributesKey KEYWORD = createTextAttributesKey("SOLIDITY_KEYWORD",
-            DefaultLanguageHighlighterColors.KEYWORD);
+            JavaHighlightingColors.KEYWORD);
 
     static final TextAttributesKey SEMI_COLON = createTextAttributesKey("SOLIDITY_SEMICOLON",
             DefaultLanguageHighlighterColors.SEMICOLON);
