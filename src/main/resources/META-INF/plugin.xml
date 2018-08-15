@@ -28,6 +28,8 @@
                              implementationClass="com.fooock.solidity.lang.support.SolidityFolding"/>
         <lang.quoteHandler language="Solidity"
                            implementationClass="com.fooock.solidity.lang.support.SolidityQuoteHandler"/>
+        <lang.findUsagesProvider language="Solidity"
+                                 implementationClass="com.fooock.solidity.lang.usage.SolidityFindUsageProvider"/>
 
         <completion.contributor language="Solidity"
                                 implementationClass="com.fooock.solidity.lang.completion.SolidityCompletionContributor"/>
