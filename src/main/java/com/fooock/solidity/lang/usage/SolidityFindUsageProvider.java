@@ -1,7 +1,7 @@
 package com.fooock.solidity.lang.usage;
 
 import com.fooock.solidity.lang.psi.SolidityContractDirective;
-import com.fooock.solidity.lang.psi.SolidityElement;
+import com.fooock.solidity.lang.psi.SolidityNamedElement;
 import com.intellij.lang.HelpID;
 import com.intellij.lang.cacheBuilder.WordsScanner;
 import com.intellij.lang.findUsages.FindUsagesProvider;
@@ -23,7 +23,7 @@ public class SolidityFindUsageProvider implements FindUsagesProvider {
 
     @Override
     public boolean canFindUsagesFor(@NotNull PsiElement psiElement) {
-        return psiElement instanceof SolidityElement;
+        return psiElement instanceof SolidityNamedElement;
     }
 
     @Nullable

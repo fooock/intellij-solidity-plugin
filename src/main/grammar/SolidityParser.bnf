@@ -1,13 +1,14 @@
 {
     parserClass="com.fooock.solidity.lang.parser.SolidityParser"
     classHeader="header.txt"
-    extends="com.intellij.extapi.psi.ASTWrapperPsiElement"
 
     psiClassPrefix="Solidity"
     psiImplClassSuffix="Impl"
     psiPackage="com.fooock.solidity.lang.psi"
     psiImplPackage="com.fooock.solidity.lang.psi.impl"
-    implements="com.fooock.solidity.lang.psi.SolidityElement"
+
+    implements="com.fooock.solidity.lang.psi.SolidityNamedElement"
+    extends="com.fooock.solidity.lang.psi.impl.SolidityNamedElementImpl"
 
     elementTypeHolderClass="com.fooock.solidity.lang.psi.SolidityTypes"
     elementTypeClass="com.fooock.solidity.lang.psi.SolidityElementType"
@@ -111,8 +112,6 @@ ImportFrom ::= ('*' | IDENTIFIER) (as ImportAlias)? from StringLiteral
 ImportComplex ::= '{' IDENTIFIER (as ImportAlias)? (',' IDENTIFIER (as ImportAlias)? )* '}' from StringLiteral
 
 ImportAlias ::= IDENTIFIER {
-    implements = "com.fooock.solidity.lang.psi.SolidityNamedElement"
-    mixin = "com.fooock.solidity.lang.psi.impl.SolidityNamedElementImpl"
     methods = [getName]
 }
 
