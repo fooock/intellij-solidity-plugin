@@ -5,5 +5,5 @@ import com.intellij.psi.PsiNameIdentifierOwner;
 /**
  *
  */
-public interface SolidityNamedElement extends PsiNameIdentifierOwner {
+public interface SolidityNamedElement extends SolidityElement, PsiNameIdentifierOwner {
 }
