@@ -1,15 +1,10 @@
 package com.fooock.solidity.lang.reference;
 
-import com.fooock.solidity.lang.psi.SolidityEventDefinition;
-import com.fooock.solidity.lang.util.SolidityUtils;
-import com.intellij.codeInsight.lookup.LookupElement;
-import com.intellij.codeInsight.lookup.LookupElementBuilder;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -26,16 +21,6 @@ public class SolidityReference extends PsiReferenceBase<PsiElement> implements P
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
-        if (myElement instanceof SolidityEventDefinition) {
-            SolidityEventDefinition eventDefinition = (SolidityEventDefinition) myElement;
-            PsiElement identifier = eventDefinition.getIdentifier();
-
-            if (identifier == null) return EMPTY_RESOLVE_RESULTS;
-
-            List<SolidityEventDefinition> eventDefinitions = SolidityUtils.findEventDefinitions(
-                    myElement.getProject(), identifier.getText());
-            return transform(eventDefinitions);
-        }
         return EMPTY_RESOLVE_RESULTS;
     }
 
@@ -49,26 +34,10 @@ public class SolidityReference extends PsiReferenceBase<PsiElement> implements P
     @NotNull
     @Override
     public Object[] getVariants() {
-        if (myElement instanceof SolidityEventDefinition) {
-            SolidityEventDefinition eventDefinition = (SolidityEventDefinition) myElement;
-            PsiElement identifier = eventDefinition.getIdentifier();
-
-            if (identifier == null) return EMPTY_RESOLVE_RESULTS;
-
-            List<SolidityEventDefinition> eventDefinitions = SolidityUtils.findEventDefinitions(
-                    myElement.getProject(), identifier.getText());
-
-            List<LookupElement> variants = new ArrayList<>(eventDefinitions.size());
-            for (SolidityEventDefinition event : eventDefinitions) {
-                if (event.getIdentifier() == null) continue;
-                variants.add(LookupElementBuilder.create(event).withTypeText(event.getContainingFile().getName()));
-            }
-            return variants.toArray();
-        }
         return EMPTY_OBJECT_ARRAY;
     }
 
-    private <T extends PsiElement> ResolveResult[] transform(List<T> list) {
+    private static <T extends PsiElement> ResolveResult[] transform(List<T> list) {
         ResolveResult[] results = new ResolveResult[list.size()];
         for (int i = 0; i < list.size(); i++) {
             results[i] = new PsiElementResolveResult(list.get(i));
