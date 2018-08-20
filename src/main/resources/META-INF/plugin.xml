@@ -15,6 +15,8 @@
     -->
 
     <extensions defaultExtensionNs="com.intellij">
+        <stubElementTypeHolder class="com.fooock.solidity.lang.psi.SolidityTypes"/>
+
         <fileTypeFactory implementation="com.fooock.solidity.lang.SolidityFileTypeFactory"/>
 
         <lang.parserDefinition language="Solidity"
