@@ -5,6 +5,7 @@ import com.fooock.solidity.lang.psi.SolidityTypes;
 import com.intellij.extapi.psi.ASTWrapperPsiElement;
 import com.intellij.lang.ASTNode;
 import com.intellij.psi.PsiElement;
+import com.intellij.psi.PsiNamedElement;
 import com.intellij.util.IncorrectOperationException;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
@@ -14,7 +15,7 @@ import org.jetbrains.annotations.Nullable;
  */
 public abstract class SolidityNamedElementImpl extends ASTWrapperPsiElement implements SolidityNamedElement {
 
-    SolidityNamedElementImpl(@NotNull ASTNode node) {
+    public SolidityNamedElementImpl(@NotNull ASTNode node) {
         super(node);
     }
 
@@ -27,7 +28,9 @@ public abstract class SolidityNamedElementImpl extends ASTWrapperPsiElement impl
     @Nullable
     @Override
     public PsiElement getNameIdentifier() {
-        return findChildByType(SolidityTypes.IDENTIFIER);
+        ASTNode idNode = getNode().findChildByType(SolidityTypes.IDENTIFIER);
+        if (idNode == null) return null;
+        return idNode.getPsi();
     }
 
     @Override
@@ -39,6 +42,10 @@ public abstract class SolidityNamedElementImpl extends ASTWrapperPsiElement impl
 
     @Override
     public PsiElement setName(@NotNull String name) throws IncorrectOperationException {
+        PsiNamedElement idNode = (PsiNamedElement) getNameIdentifier();
+        if (idNode != null) {
+            return idNode.setName(name);
+        }
         return this;
     }
 }
