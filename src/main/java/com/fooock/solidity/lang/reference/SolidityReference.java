@@ -1,34 +1,46 @@
 package com.fooock.solidity.lang.reference;
 
+import com.fooock.solidity.lang.psi.SolidityNamedElement;
 import com.intellij.openapi.util.TextRange;
 import com.intellij.psi.*;
+import com.intellij.psi.impl.source.resolve.ResolveCache;
 import org.jetbrains.annotations.NotNull;
 import org.jetbrains.annotations.Nullable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
- *
+ * Base class for all references
  */
-public class SolidityReference extends PsiReferenceBase<PsiElement> implements PsiPolyVariantReference {
-    private static final ResolveResult[] EMPTY_RESOLVE_RESULTS = new ResolveResult[0];
+public abstract class SolidityReference<T extends SolidityReferenceElement> extends PsiPolyVariantReferenceBase<T> implements PsiPolyVariantReference {
+    private static final ResolveResult[] RESOLVE_RESULT_TYPE = new ResolveResult[0];
     private static final Object[] EMPTY_OBJECT_ARRAY = new Object[0];
 
-    SolidityReference(PsiElement element, TextRange rangeInElement) {
-        super(element, rangeInElement);
+    SolidityReference(T element, TextRange range) {
+        super(element, range);
     }
+
+    @NotNull
+    protected abstract List<PsiElement> resolveForElement();
 
     @NotNull
     @Override
     public ResolveResult[] multiResolve(boolean incompleteCode) {
-        return EMPTY_RESOLVE_RESULTS;
+        return ResolveCache.getInstance(myElement.getProject())
+                .resolveWithCaching(this, (solidityReference, code) -> getResolveResults(solidityReference), true, incompleteCode);
     }
 
-    @Nullable
-    @Override
-    public PsiElement resolve() {
-        ResolveResult[] results = multiResolve(false);
-        return results.length == 0 ? null : results[0].getElement();
+    @NotNull
+    private ResolveResult[] getResolveResults(SolidityReference<T> solidityReference) {
+        List<PsiElement> elements = solidityReference.resolveForElement();
+        if (elements.isEmpty()) return RESOLVE_RESULT_TYPE;
+
+        List<PsiElementResolveResult> results = new ArrayList<>(elements.size());
+        for (PsiElement element : elements) {
+            results.add(new PsiElementResolveResult(element));
+        }
+        return results.toArray(RESOLVE_RESULT_TYPE);
     }
 
     @NotNull
@@ -37,11 +49,10 @@ public class SolidityReference extends PsiReferenceBase<PsiElement> implements P
         return EMPTY_OBJECT_ARRAY;
     }
 
-    private static <T extends PsiElement> ResolveResult[] transform(List<T> list) {
-        ResolveResult[] results = new ResolveResult[list.size()];
-        for (int i = 0; i < list.size(); i++) {
-            results[i] = new PsiElementResolveResult(list.get(i));
-        }
-        return results;
+    @Nullable
+    @Override
+    public PsiElement resolve() {
+        PsiElement element = super.resolve();
+        return element != null ? ((SolidityNamedElement) element) : null;
     }
 }

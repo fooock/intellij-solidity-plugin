@@ -269,7 +269,7 @@ PrimaryExpression ::= BooleanLiteral
     | StringLiteral
     | ElementTypeName
     | ParenthesesExpression
-    | IDENTIFIER
+    | VariableLiteral
 
 TupleExpression ::= '(' (Expression? (',' Expression? )+ )? ')'
     | '[' (Expression  (',' Expression)* )? ']'
@@ -283,6 +283,10 @@ FunctionalAssemblyExpression ::= IDENTIFIER '(' AssemblyItem? (',' AssemblyItem)
 //  \___\___/|_| |_| |_|_| |_| |_|\___/|_| |_|
 //
 
+VariableLiteral ::= IDENTIFIER {
+    implements = "com.fooock.solidity.lang.reference.SolidityReferenceElement"
+    mixin = "com.fooock.solidity.lang.psi.mixin.SolidityVariableMixin"
+}
 FunctionCallArguments ::= '{' NameValueList? '}' | ExpressionList?
 NameValueList ::= IDENTIFIER ':' Expression (',' IDENTIFIER ':' Expression)*
 

@@ -38,9 +38,6 @@
 
         <annotator language="Solidity"
                    implementationClass="com.fooock.solidity.lang.highlighter.SolidityHighlightingAnnotator"/>
-
-        <psi.referenceContributor language="Solidity"
-                                  implementation="com.fooock.solidity.lang.reference.SolidityReferenceContributor"/>
     </extensions>
 
     <actions>
